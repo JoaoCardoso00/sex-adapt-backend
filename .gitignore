@@ -1,0 +1,7 @@
+*-lock.*
+*-debug.*
+*.local
+node_modules
+.vscode
+dist
+build
