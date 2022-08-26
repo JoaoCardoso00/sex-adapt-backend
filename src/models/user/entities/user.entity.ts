@@ -37,7 +37,7 @@ export class User implements IUser {
   @Column()
   incompatible: boolean;
 
-  @Column()
+  @Column({ default: 0 })
   visited: number;
 
   @CreateDateColumn({ name: 'created_at' })
