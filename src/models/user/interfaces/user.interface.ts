@@ -3,14 +3,13 @@ export interface IUser {
   name: string;
   password: string;
   photo_path: string;
-  needStair: boolean;
-  needBar: boolean;
-  needBraille: boolean;
-  needLibra: boolean;
-  needTactilFlooring: boolean;
-  unevenness: boolean;
-  incompatible: boolean;
-  visited: number;
+  need_ramp: boolean;
+  need_bar: boolean;
+  need_braille: boolean;
+  need_libra: boolean;
+  need_tactile_floor: boolean;
+  affected_by_unevenness: boolean;
+  establishments_visited: number;
 
   createdAt: Date;
 }

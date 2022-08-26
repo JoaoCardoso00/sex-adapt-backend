@@ -17,28 +17,25 @@ export class User implements IUser {
   photo_path: string;
 
   @Column()
-  needStair: boolean;
+  need_ramp: boolean;
 
   @Column()
-  needBar: boolean;
+  need_bar: boolean;
 
   @Column()
-  needBraille: boolean;
+  need_braille: boolean;
 
   @Column()
-  needLibra: boolean;
+  need_libra: boolean;
 
   @Column()
-  needTactilFlooring: boolean;
+  need_tactile_floor: boolean;
 
   @Column()
-  unevenness: boolean;
-
-  @Column()
-  incompatible: boolean;
+  affected_by_unevenness: boolean;
 
   @Column({ default: 0 })
-  visited: number;
+  establishments_visited: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

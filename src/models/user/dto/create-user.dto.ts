@@ -19,29 +19,25 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  needStair: boolean;
+  need_ramp: boolean;
 
   @IsNotEmpty()
   @IsBoolean()
-  needBar: boolean;
+  need_bar: boolean;
 
   @IsNotEmpty()
   @IsBoolean()
-  needBraille: boolean;
+  need_braille: boolean;
 
   @IsNotEmpty()
   @IsBoolean()
-  needLibra: boolean;
+  need_libra: boolean;
 
   @IsNotEmpty()
   @IsBoolean()
-  needTactilFlooring: boolean;
+  need_tactile_floor: boolean;
 
   @IsNotEmpty()
   @IsBoolean()
-  unevenness: boolean;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  incompatible: boolean;
+  affected_by_unevenness: boolean;
 }
