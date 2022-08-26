@@ -9,7 +9,6 @@ docker run \
   --net ${DOCKER_NET_NAME} \
   -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
   -p ${POSTGRES_PORT}:${POSTGRES_PORT} \
-  -v "$PWD/.volume/:/var/lib/postgresql/data" \
   -d postgres
 
 echo "### POSTGRES RUNNING IN PORT: ${POSTGRES_PORT} ###"
