@@ -1,8 +1,6 @@
 
 ## Sex Adapt - Back End
 
-  
-
 ## Dependencies:
 
 - [Docker](https://www.docker.com/)
@@ -26,7 +24,14 @@
 	- Docker might not be running
 		- Solution 1: `sudo service run docker`;
 		- Solution 2: Run setup step 1 again;
-		- Solution 3: Check your firewall
+		- Solution 3: Check your firewall;
+2. error: database "sex_adapt" does not exist
+	- Database was created
+		- Solution: 
+			1. Execute `docker exec -it postgres-sex-adapt psql -U postgres`;
+			2. Execute `CREATE DATABASE "sex_adapt"`;
+			3. Quit with \q and try again;
+
 
 ## Checklist:
  - [ ] TAMO INDO
