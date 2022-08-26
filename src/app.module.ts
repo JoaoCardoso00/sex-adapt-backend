@@ -19,7 +19,7 @@ import { AppService } from './app.service';
       database: process.env.DB,
       entities: ['**/*.entity{.ts,.js}'],
       synchronize: true,
-      migrations: ['src/migration/*.ts'],
+      migrations: ['src/database/postgres/migration/*.ts'],
       migrationsTableName: 'migration'
     })
   ],
