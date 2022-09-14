@@ -1,4 +1,3 @@
-
 ## Sex Adapt - Back End
 
 ## Dependencies:
@@ -31,7 +30,3 @@
 			1. Execute `docker exec -it postgres-sex-adapt psql -U postgres`;
 			2. Execute `CREATE DATABASE "sex_adapt"`;
 			3. Quit with \q and try again;
-
-
-## Checklist:
- - [ ] TAMO INDO
