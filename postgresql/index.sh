@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source variables.sh
 
 docker stop ${POSTRES_CONTAINER_NAME} || true

@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@users/*": ["src/models/users/*"],
+      "@polls/*": ["src/models/polls/*"],
+      "@polls": ["src/models/polls/index"],
+      "@questions/*": ["src/models/questions/*"],
+      "@guards/*": ["src/common/decorators/guards/*"],
+      "@authentication/*": ["src/authentication/*"],
+      "@authentication": ["src/authentication/index"]
+    }
   }
 }

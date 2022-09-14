@@ -1,4 +1,5 @@
-echo "### STARTING SETUP SEX ADAPT ###"
+#!/bin/bash
+echo "### STARTING SETUP WHAT IF ###"
 
 echo "### VARIABLES ###"
 source variables.sh

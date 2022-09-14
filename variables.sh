@@ -1,4 +1,6 @@
-POSTRES_CONTAINER_NAME=postgres-sex-adapt
+#!/bin/bash
+
+POSTRES_CONTAINER_NAME=postgres-whatif
 POSTGRES_PASSWORD=admin
 POSTGRES_PORT=5432
 
