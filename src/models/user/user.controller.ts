@@ -8,27 +8,37 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll() {
+    return await this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Get('/findById/:id')
+  findOneById(@Param('id') id: string) {
+    return this.userService.findOneById(id);
+  }
+
+  @Get('/findByEmail/:email')
+  findOneByEmail(@Param('email') email: string) {
+    return this.userService.findOneByEmail(email);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Delete('/deleteByEmail/:email')
+  removeByEmail(@Param('email') email: string) {
+    return this.userService.removeByEmail(email);
+  }
+
+  @Delete('/deleteById/:id')
+  removeById(@Param('id') id: string) {
+    return this.userService.removeById(id);
   }
 }
