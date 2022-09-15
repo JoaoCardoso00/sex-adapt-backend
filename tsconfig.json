@@ -18,11 +18,13 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@users/*": ["src/models/users/*"],
-      "@polls/*": ["src/models/polls/*"],
-      "@polls": ["src/models/polls/index"],
-      "@questions/*": ["src/models/questions/*"],
       "@guards/*": ["src/common/decorators/guards/*"],
+      "@helpers/*": ["src/common/decorators/helpers/*"],
+      "@providers/*": ["src/providers/*"],
+      "@config/*": ["src/config/*"],
+      "@models/*": ["src/models/*"],
+      "@services/*": ["src/services/*"],
+      "@utils/*": ["src/utils/*"],
       "@authentication/*": ["src/authentication/*"],
       "@authentication": ["src/authentication/index"]
     }
