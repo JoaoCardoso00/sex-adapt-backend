@@ -12,7 +12,4 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 
     @Column()
     name: string;
-
-    @Column()
-    photo: string;
 }

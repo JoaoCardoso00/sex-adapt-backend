@@ -1,10 +1,8 @@
-export interface IUserEntity {
-    id?: string;
+import { IBaseEntity } from './../../base/interfaces/base-entity.interface';
+export interface IUserEntity extends IBaseEntity {
     email: string;
     password?: string;
     name: string;
-    photo: string;
-    createdAt: Date
 }
 
 //FAVORITES && ACCESSIBILITIES NOT YET IMPLEMENTED
