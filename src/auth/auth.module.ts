@@ -8,12 +8,8 @@ import { AtStrategy } from './strategies/at.strategy';
 import { RtStrategy } from './strategies/rt.strategy';
 
 @Module({
-  imports: [
-    PassportModule,
-    JwtModule.register({}),
-    UserModule
-  ],
-  controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy],
+	imports: [PassportModule, JwtModule.register({}), UserModule],
+	controllers: [AuthController],
+	providers: [AuthService, AtStrategy, RtStrategy]
 })
 export class AuthModule {}
