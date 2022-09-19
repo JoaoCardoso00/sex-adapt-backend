@@ -13,6 +13,9 @@ export class UserEntity extends BaseEntity implements IUserEntity {
   @Column()
   name: string;
 
+  @Column({ nullable: true })
+  hashedRefreshToken?: string;
+
   @BeforeInsert()
   hashPassword() {
     this.password = hashSync(this.password, 10);

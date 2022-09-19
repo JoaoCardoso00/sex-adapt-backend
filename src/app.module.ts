@@ -16,9 +16,6 @@ import { AuthModule } from './auth/auth.module';
         DB_USERNAME: Joi.string(),
         DB_PASSWORD: Joi.string(),
         DB: Joi.string(),
-        // OAUTH_GOOGLE_ID: Joi.string().required(),
-        // OAUTH_GOOGLE_SECRET: Joi.string().required(),
-        // OAUTH_GOOGLE_REDIRECT_URL: Joi.string().required(),
         JWT_SECRET: Joi.string(),
         JWT_EXPIRES_IN: Joi.string()
       })

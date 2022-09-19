@@ -1,5 +1,5 @@
 import { IUserEntity } from '../interfaces';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto implements IUserEntity {
   @IsEmail()
@@ -13,4 +13,6 @@ export class CreateUserDto implements IUserEntity {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  hashedRefreshToken: string | null;
 }
