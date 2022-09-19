@@ -1,3 +1,5 @@
+import { LoginFailedException } from './../common/exceptions/login-failed.exception';
+import { NotFoundException } from './../common/exceptions/not-found.exception';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UnauthorizedException, Injectable } from '@nestjs/common';
@@ -33,10 +35,10 @@ export class AuthService {
 	async signin_local(authInfo: AuthDto): Promise<Tokens> {
 		const user = await this.userService.findOneByEmail(authInfo.email);
 
-		if (!user) throw new UnauthorizedException();
+		if (!user) throw new LoginFailedException();
 
 		const password_match = await compare(authInfo.password, user.password);
-		if (!password_match) throw new UnauthorizedException();
+		if (!password_match) throw new LoginFailedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
 		await this.updateRtHash(user.id, tokens.refresh_token);
@@ -52,7 +54,7 @@ export class AuthService {
 
 	async updateRefreshToken(userId: string, refresh_token: string) {
 		const user = await this.userService.findOneById(userId);
-		if (!user || !user.hashedRefreshToken) throw new UnauthorizedException();
+		if (!user || !user.hashedRefreshToken) throw new NotFoundException("User not found");
 
 		const rt_match = await compare(refresh_token, user.hashedRefreshToken);
 		if (!rt_match) throw new UnauthorizedException();
