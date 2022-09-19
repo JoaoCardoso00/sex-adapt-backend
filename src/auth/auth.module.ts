@@ -4,12 +4,12 @@ import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
-import { AtStrategy } from './strategies/at.strategy';
-import { RtStrategy } from './strategies/rt.strategy';
+import { AccessTokenGuard } from './strategies/access-token.strategy';
+import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 
 @Module({
 	imports: [PassportModule, JwtModule.register({}), UserModule],
 	controllers: [AuthController],
-	providers: [AuthService, AtStrategy, RtStrategy]
+	providers: [AuthService, AccessTokenGuard, RefreshTokenStrategy]
 })
 export class AuthModule {}

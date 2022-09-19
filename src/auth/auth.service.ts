@@ -16,11 +16,11 @@ export class AuthService {
 	) {}
 
 	//DB CHANGES
-	async signup_local(dto: CreateUserDto): Promise<Tokens> {
+	async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
 		const new_user = await this.userService.create({
-			email: dto.email,
-			name: dto.name,
-			password: dto.password,
+			email: userInfo.email,
+			name: userInfo.name,
+			password: userInfo.password,
 			hashedRefreshToken: null
 		});
 
@@ -30,12 +30,12 @@ export class AuthService {
 		return tokens;
 	}
 
-	async signin_local(dto: AuthDto): Promise<Tokens> {
-		const user = await this.userService.findOneByEmail(dto.email);
+	async signin_local(authInfo: AuthDto): Promise<Tokens> {
+		const user = await this.userService.findOneByEmail(authInfo.email);
 
 		if (!user) throw new UnauthorizedException();
 
-		const password_match = await compare(dto.password, user.password);
+		const password_match = await compare(authInfo.password, user.password);
 		if (!password_match) throw new UnauthorizedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
@@ -50,11 +50,11 @@ export class AuthService {
 		});
 	}
 
-	async refresh_token(userId: string, rt: string) {
+	async updateRefreshToken(userId: string, refresh_token: string) {
 		const user = await this.userService.findOneById(userId);
 		if (!user || !user.hashedRefreshToken) throw new UnauthorizedException();
 
-		const rt_match = await compare(rt, user.hashedRefreshToken);
+		const rt_match = await compare(refresh_token, user.hashedRefreshToken);
 		if (!rt_match) throw new UnauthorizedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
@@ -65,8 +65,8 @@ export class AuthService {
 
 	//HELP FUNCTIONS
 
-	async updateRtHash(userId: string, rt: string) {
-		const hash = await this.hashData(rt);
+	async updateRtHash(userId: string, refresh_token: string) {
+		const hash = await this.hashData(refresh_token);
 
 		await this.userService.update(userId, {
 			hashedRefreshToken: hash
@@ -78,7 +78,7 @@ export class AuthService {
 	}
 
 	async getTokens(userId: string, email: string): Promise<Tokens> {
-		const [at, rt] = await Promise.all([
+		const [access_token, refresh_token] = await Promise.all([
 			this.jwtService.signAsync(
 				{
 					sub: userId,
@@ -102,8 +102,8 @@ export class AuthService {
 		]);
 
 		return {
-			refresh_token: rt,
-			access_token: at
+			refresh_token,
+			access_token
 		};
 	}
 }

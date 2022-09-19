@@ -1,7 +1,7 @@
 import { IBaseEntity } from './../../base/interfaces/base-entity.interface';
 export interface IUserEntity extends IBaseEntity {
 	email: string;
-	password?: string;
+	password: string;
 	name: string;
 	hashedRefreshToken: string | null;
 }
