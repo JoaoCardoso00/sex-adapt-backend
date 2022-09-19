@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 //👌
@@ -17,9 +17,9 @@ import Joi from 'joi';
         OAUTH_GOOGLE_SECRET: Joi.string().required(),
         OAUTH_GOOGLE_REDIRECT_URL: Joi.string().required(),
         JWT_SECRET: Joi.string().default('testeteste'),
-        JWT_EXPIRES_IN: Joi.string().default('60s'),
+        JWT_EXPIRES_IN: Joi.string().default('60s')
       })
-    }),
+    })
   ]
 })
 export class ConfigEnvModule {}

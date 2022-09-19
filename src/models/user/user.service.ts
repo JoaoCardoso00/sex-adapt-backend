@@ -9,18 +9,18 @@ import { UserEntity } from './entities/user.entity';
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private usersRepository: Repository<UserEntity>,
-  ) { }
+    private usersRepository: Repository<UserEntity>
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const user = this.usersRepository.create(createUserDto)
-    return await this.usersRepository.save(user)
+    const user = this.usersRepository.create(createUserDto);
+    return await this.usersRepository.save(user);
   }
 
   async findAll() {
     return await this.usersRepository.find({
-      select: ["email", "id", "name"]
-    })
+      select: ['email', 'id', 'name']
+    });
   }
 
   async findOneById(id: string) {
@@ -34,9 +34,8 @@ export class UserService {
       }
     });
   }
-  async findOneOrFail(
-    options: FindOneOptions<UserEntity>,
-  ) {
+
+  async findOneOrFail(options: FindOneOptions<UserEntity>) {
     try {
       return await this.usersRepository.findOneOrFail(options);
     } catch (error) {
@@ -51,10 +50,10 @@ export class UserService {
   }
 
   async removeById(id: string) {
-    return await this.usersRepository.delete({ id })
+    return await this.usersRepository.delete({ id });
   }
 
   async removeByEmail(email: string) {
-    return await this.usersRepository.delete({ email })
+    return await this.usersRepository.delete({ email });
   }
 }

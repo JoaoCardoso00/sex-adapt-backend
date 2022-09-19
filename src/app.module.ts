@@ -1,29 +1,26 @@
-import { UserService } from './models/user/user.service';
-import { UserController } from './models/user/user.controller';
-import { DatabasesModule } from './config/typeorm/typeorm.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { UserModule } from './models/user/user.module';
-import { DataSource } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.local'],
       validationSchema: Joi.object({
-        DB_HOST: Joi.string().default('localhost'),
-        DB_PORT: Joi.number().default('5432'),
-        DB_USERNAME: Joi.string().default('postgres'),
-        DB_PASSWORD: Joi.string().default('root'),
-        DB: Joi.string().default('dev'),
+        DB_HOST: Joi.string(),
+        DB_PORT: Joi.number(),
+        DB_USERNAME: Joi.string(),
+        DB_PASSWORD: Joi.string(),
+        DB: Joi.string(),
         // OAUTH_GOOGLE_ID: Joi.string().required(),
         // OAUTH_GOOGLE_SECRET: Joi.string().required(),
         // OAUTH_GOOGLE_REDIRECT_URL: Joi.string().required(),
-        // JWT_SECRET: Joi.string().default('testeteste'),
-        // JWT_EXPIRES_IN: Joi.string().default('60s'),
+        JWT_SECRET: Joi.string(),
+        JWT_EXPIRES_IN: Joi.string()
       })
     }),
     TypeOrmModule.forRootAsync({
@@ -39,13 +36,12 @@ import { join } from 'path';
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
 
         synchronize: true
-
       })
     }),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [],
   providers: []
 })
-export class AppModule {
-}
+export class AppModule {}
