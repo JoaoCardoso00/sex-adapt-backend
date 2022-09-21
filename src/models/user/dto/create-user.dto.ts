@@ -14,7 +14,7 @@ export class CreateUserDto {
 	@IsString()
 	@IsNotEmpty()
 	@Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, {
-		message: 'passaword is too weak'
+		message: 'password is too weak'
 	})
 	password: string;
 
