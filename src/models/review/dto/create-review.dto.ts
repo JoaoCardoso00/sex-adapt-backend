@@ -24,4 +24,8 @@ export class CreateReviewDto {
 	@IsString()
 	@MaxLength(125)
 	comment: string;
+
+	// @IsNotEmpty()
+	// @IsString()
+	// establishmentId: string
 }
