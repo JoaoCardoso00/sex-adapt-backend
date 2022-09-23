@@ -14,13 +14,6 @@ import {
 } from 'class-validator';
 
 export class CreateReviewDto {
-	@IsDefined()
-	@IsNotEmptyObject()
-	@IsObject()
-	@ValidateNested()
-	@Type(() => UserEntity)
-	user!: UserEntity;
-
 	@IsNotEmpty()
 	@IsNumber()
 	@Min(0)
