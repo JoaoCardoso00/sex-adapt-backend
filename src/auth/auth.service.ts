@@ -61,7 +61,7 @@ export class AuthService {
 		if (!user || !user.hashedRefreshToken)
 			throw new NotFoundException('User not found');
 
-		const rt_match = await verify(refresh_token, user.hashedRefreshToken);
+		const rt_match = await verify(user.hashedRefreshToken, refresh_token);
 		if (!rt_match) throw new UnauthorizedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
