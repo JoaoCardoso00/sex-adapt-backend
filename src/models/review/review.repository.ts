@@ -12,7 +12,7 @@ export class ReviewRepository extends Repository<ReviewEntity> {
 	) {
 		super(ReviewEntity, dataSource.createEntityManager());
 	}
-	
+
 	async createAndSaveOnUser(userId: string, reviewInfo: CreateReviewDto) {
 		const review = this.create(reviewInfo);
 		const user = await this.usersRepository.findOne({

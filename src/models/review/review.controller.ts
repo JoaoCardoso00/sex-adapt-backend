@@ -18,7 +18,7 @@ import { RefreshTokenGuard } from '@guards/refresh-token.guard';
 
 @Controller('review')
 export class ReviewController {
-	constructor(private readonly reviewService: ReviewService) { }
+	constructor(private readonly reviewService: ReviewService) {}
 
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
