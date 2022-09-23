@@ -4,7 +4,7 @@ export interface IUserEntity extends IBaseEntity {
 	email: string;
 	password: string;
 	name: string;
-	review: IReviewEntity[]
+	review: IReviewEntity[];
 	hashedRefreshToken: string;
 }
 

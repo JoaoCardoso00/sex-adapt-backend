@@ -2,8 +2,8 @@ import { IUserEntity } from './../../../../dist/models/user/interfaces/user.inte
 import { IBaseEntity } from './../../base/interfaces/base-entity.interface';
 
 export interface IReviewEntity extends IBaseEntity {
-    user: IUserEntity;
-    // establishmentId: string
-    grade: number;
-    comment: string;
+	user: IUserEntity;
+	// establishmentId: string
+	grade: number;
+	comment: string;
 }
