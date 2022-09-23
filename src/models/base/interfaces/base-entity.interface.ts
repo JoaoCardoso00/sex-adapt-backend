@@ -1,7 +1,5 @@
 export type IBaseEntity = {
-	id: UUID;
+	id: string;
 	createdAt: Date;
 	updatedAt: Date;
 };
-
-type UUID = string;
