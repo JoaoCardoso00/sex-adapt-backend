@@ -10,7 +10,7 @@ export class UserService {
 	constructor(
 		@InjectRepository(UserEntity)
 		private usersRepository: Repository<UserEntity>
-	) { }
+	) {}
 
 	async create(createUserDto: CreateUserDto) {
 		const user = this.usersRepository.create(createUserDto);
@@ -50,7 +50,7 @@ export class UserService {
 		try {
 			return await this.usersRepository.findOneOrFail({
 				...options,
-				relations: ['reviews'],
+				relations: ['reviews']
 			});
 		} catch (error) {
 			throw new NotFoundException(error.message);

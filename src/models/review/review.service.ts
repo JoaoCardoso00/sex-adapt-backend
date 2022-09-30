@@ -10,16 +10,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class ReviewService {
 	constructor(
 		@InjectRepository(ReviewEntity)
-		private reviewsRepository: Repository<ReviewEntity>,
-	) { }
+		private reviewsRepository: Repository<ReviewEntity>
+	) {}
 
 	async create(userId: string, createReviewDto: CreateReviewDto) {
 		try {
-			const review = this.reviewsRepository.create({ user: userId as any, ...createReviewDto });
-			await this.reviewsRepository.save(review)
+			const review = this.reviewsRepository.create({
+				user: userId as any,
+				...createReviewDto
+			});
+			await this.reviewsRepository.save(review);
 			return review;
 		} catch (error) {
-			return error
+			return error;
 		}
 	}
 
@@ -61,8 +64,8 @@ export class ReviewService {
 	async remove(id: string) {
 		await this.findOneOrFail({
 			where: { id }
-		})
-		await this.reviewsRepository.delete({ id })
+		});
+		await this.reviewsRepository.delete({ id });
 		return;
 	}
 }

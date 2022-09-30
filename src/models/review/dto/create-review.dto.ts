@@ -4,7 +4,7 @@ import {
 	IsString,
 	Max,
 	MaxLength,
-	Min,
+	Min
 } from 'class-validator';
 
 export class CreateReviewDto {
