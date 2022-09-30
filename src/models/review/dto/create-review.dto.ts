@@ -1,16 +1,10 @@
-import { UserEntity } from '@models/user/entities/user.entity';
-import { Type } from 'class-transformer';
 import {
-	IsDefined,
 	IsNotEmpty,
-	IsNotEmptyObject,
 	IsNumber,
-	IsObject,
 	IsString,
 	Max,
 	MaxLength,
 	Min,
-	ValidateNested
 } from 'class-validator';
 
 export class CreateReviewDto {

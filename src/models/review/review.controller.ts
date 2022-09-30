@@ -3,7 +3,6 @@ import {
 	Get,
 	Post,
 	Body,
-	Patch,
 	Param,
 	Delete,
 	HttpCode,
@@ -12,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
 import { GetCurrentUserId } from 'src/common/decorators';
 import { RefreshTokenGuard } from '@guards/refresh-token.guard';
 
@@ -40,11 +38,6 @@ export class ReviewController {
 	findOne(@Param('id') id: string) {
 		return this.reviewService.findOneOrFail({ where: { id } });
 	}
-
-	// @Patch(':id')
-	// update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-	// 	return this.reviewService.update(id, updateReviewDto);
-	// }
 
 	@UseGuards(RefreshTokenGuard)
 	@Delete(':id')

@@ -1,43 +1,68 @@
+import { UserService } from '@models/user/user.service';
+import { UserEntity } from '@user/entities/user.entity';
 import { ReviewEntity } from './entities/review.entity';
-import { ReviewRepository } from './review.repository';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
-import { FindOneOptions } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ReviewService {
-	constructor(private reviewsRepository: ReviewRepository) {}
+	constructor(
+		@InjectRepository(ReviewEntity)
+		private reviewsRepository: Repository<ReviewEntity>,
+	) { }
 
 	async create(userId: string, createReviewDto: CreateReviewDto) {
-		const review = await this.reviewsRepository.createAndSaveOnUser(
-			userId,
-			createReviewDto
-		);
-		return review;
+		try {
+			const review = this.reviewsRepository.create({ user: userId as any, ...createReviewDto });
+			await this.reviewsRepository.save(review)
+			return review;
+		} catch (error) {
+			return error
+		}
 	}
 
 	async findAll() {
 		return await this.reviewsRepository.find({
 			relations: {
 				user: true
+			},
+			select: {
+				user: {
+					id: true,
+					email: true,
+					name: true
+				}
 			}
 		});
 	}
 
 	async findOneOrFail(options: FindOneOptions<ReviewEntity>) {
 		try {
-			return await this.reviewsRepository.findOneOrFail(options);
+			return await this.reviewsRepository.findOneOrFail({
+				...options,
+				relations: {
+					user: true
+				},
+				select: {
+					user: {
+						id: true,
+						email: true,
+						name: true
+					}
+				}
+			});
 		} catch (error) {
 			throw new NotFoundException(error.message);
 		}
 	}
 
-	update(id: string, updateReviewDto: UpdateReviewDto) {
-		return `This action updates a #${id} review`;
-	}
-
-	remove(id: string) {
-		return `This action removes a #${id} review`;
+	async remove(id: string) {
+		await this.findOneOrFail({
+			where: { id }
+		})
+		await this.reviewsRepository.delete({ id })
+		return;
 	}
 }

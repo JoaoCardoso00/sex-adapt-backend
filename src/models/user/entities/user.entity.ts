@@ -1,6 +1,6 @@
 import { ReviewEntity } from './../../review/entities/review.entity';
 import { hash } from 'argon2';
-import { BeforeInsert, Column, Entity, OneToMany, RelationId } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 @Entity({ name: 'users' })
@@ -15,7 +15,8 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 	name: string;
 
 	@OneToMany(() => ReviewEntity, (review) => review.user)
-	review: ReviewEntity[];
+	@JoinColumn({ name: 'review_id' })
+	reviews: ReviewEntity[];
 
 	@Column({ nullable: true })
 	hashedRefreshToken: string;

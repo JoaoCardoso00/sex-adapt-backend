@@ -10,7 +10,7 @@ export class UserService {
 	constructor(
 		@InjectRepository(UserEntity)
 		private usersRepository: Repository<UserEntity>
-	) {}
+	) { }
 
 	async create(createUserDto: CreateUserDto) {
 		const user = this.usersRepository.create(createUserDto);
@@ -19,7 +19,17 @@ export class UserService {
 
 	async findAll() {
 		return await this.usersRepository.find({
-			select: ['email', 'id', 'name']
+			relations: ['reviews'],
+			select: {
+				email: true,
+				id: true,
+				name: true,
+				reviews: {
+					comment: true,
+					grade: true,
+					id: true
+				}
+			}
 		});
 	}
 
@@ -31,13 +41,17 @@ export class UserService {
 		return await this.usersRepository.findOne({
 			where: {
 				email
-			}
+			},
+			relations: ['reviews']
 		});
 	}
 
 	async findOneOrFail(options: FindOneOptions<UserEntity>) {
 		try {
-			return await this.usersRepository.findOneOrFail(options);
+			return await this.usersRepository.findOneOrFail({
+				...options,
+				relations: ['reviews'],
+			});
 		} catch (error) {
 			throw new NotFoundException(error.message);
 		}
