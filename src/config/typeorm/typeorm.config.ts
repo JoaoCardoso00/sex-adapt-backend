@@ -1,24 +1,22 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { join } from "path";
 
-@Module({
-	exports: [
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: async (configService: ConfigService) => ({
-				type: 'postgres',
-				host: configService.get('DB_HOST'),
-				port: configService.get('DB_PORT'),
-				username: configService.get('DB_USERNAME'),
-				password: configService.get('DB_PASSWORD'),
-				database: configService.get('DB')
-			})
-		})
-	]
-})
-export class DatabasesModule {
-	constructor(private dataSource: DataSource) {}
+@Injectable()
+export class TypeOrmConfigService implements TypeOrmOptionsFactory {
+	constructor(private configService: ConfigService) { }
+	createTypeOrmOptions(): TypeOrmModuleOptions {
+		return {
+			type: 'postgres',
+			host: this.configService.get('DB_HOST'),
+			port: this.configService.get('DB_PORT'),
+			username: this.configService.get('DB_USERNAME'),
+			password: this.configService.get('DB_PASSWORD'),
+			database: this.configService.get('DB'),
+			entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+
+			synchronize: true
+		};
+	}
 }
