@@ -16,7 +16,7 @@ export class ReviewService {
 	async create(userId: string, createReviewDto: CreateReviewDto) {
 		try {
 			const review = this.reviewsRepository.create({
-				user: userId as any,
+				user: userId as unknown as UserEntity, // O proprio typeorm converte o id para a entidade de usuario por causa da configuração da relação la na entidade
 				...createReviewDto
 			});
 			await this.reviewsRepository.save(review);
