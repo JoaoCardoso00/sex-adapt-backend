@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
+import { SuportModule } from './models/suport/suport.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -40,7 +41,8 @@ import { ReviewModule } from './models/review/review.module';
 		}),
 		UserModule,
 		AuthModule,
-		ReviewModule
+		ReviewModule,
+		SuportModule
 	],
 	controllers: [],
 	providers: [
