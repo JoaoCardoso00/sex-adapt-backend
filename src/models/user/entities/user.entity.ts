@@ -1,7 +1,9 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { ReviewEntity } from './../../review/entities/review.entity';
+import { hash } from 'argon2';
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
-import { hashSync } from 'bcrypt';
+
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements IUserEntity {
 	@Column({ unique: true })
@@ -13,11 +15,15 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 	@Column()
 	name: string;
 
+	@OneToMany(() => ReviewEntity, (review) => review.user, { cascade: true })
+	@JoinColumn({ name: 'review_id' })
+	reviews: ReviewEntity[];
+
 	@Column({ nullable: true })
-	hashedRefreshToken?: string;
+	hashedRefreshToken: string;
 
 	@BeforeInsert()
-	hashPassword() {
-		this.password = hashSync(this.password, 10);
+	async hashPassword() {
+		this.password = await hash(this.password);
 	}
 }

@@ -4,7 +4,7 @@ import { CreateUserDto } from './../models/user/dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UnauthorizedException, Injectable } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
-import { compare, hash } from 'bcrypt';
+import { verify, hash } from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '@models/user/user.service';
 import { Tokens } from './@types/tokens.type';
@@ -19,17 +19,21 @@ export class AuthService {
 
 	//DB CHANGES
 	async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
-		const new_user = await this.userService.create({
-			email: userInfo.email,
-			name: userInfo.name,
-			password: userInfo.password,
-			hashedRefreshToken: null
-		});
+		try {
+			const new_user = await this.userService.create({
+				email: userInfo.email,
+				name: userInfo.name,
+				password: userInfo.password,
+				hashedRefreshToken: null
+			});
 
-		const tokens = await this.getTokens(new_user.id, new_user.email);
-		await this.updateRtHash(new_user.id, tokens.refresh_token);
+			const tokens = await this.getTokens(new_user.id, new_user.email);
+			await this.updateRtHash(new_user.id, tokens.refresh_token);
 
-		return tokens;
+			return tokens;
+		} catch (err) {
+			throw new LoginFailedException();
+		}
 	}
 
 	async signin_local(authInfo: AuthDto): Promise<Tokens> {
@@ -37,7 +41,7 @@ export class AuthService {
 
 		if (!user) throw new LoginFailedException();
 
-		const password_match = await compare(authInfo.password, user.password);
+		const password_match = await verify(user.password, authInfo.password);
 		if (!password_match) throw new LoginFailedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
@@ -54,9 +58,10 @@ export class AuthService {
 
 	async updateRefreshToken(userId: string, refresh_token: string) {
 		const user = await this.userService.findOneById(userId);
-		if (!user || !user.hashedRefreshToken) throw new NotFoundException("User not found");
+		if (!user || !user.hashedRefreshToken)
+			throw new NotFoundException('User not found');
 
-		const rt_match = await compare(refresh_token, user.hashedRefreshToken);
+		const rt_match = await verify(user.hashedRefreshToken, refresh_token);
 		if (!rt_match) throw new UnauthorizedException();
 
 		const tokens = await this.getTokens(user.id, user.email);
@@ -76,7 +81,7 @@ export class AuthService {
 	}
 
 	hashData(data: string) {
-		return hash(data, 10);
+		return hash(data);
 	}
 
 	async getTokens(userId: string, email: string): Promise<Tokens> {

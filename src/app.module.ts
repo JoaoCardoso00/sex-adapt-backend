@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuard } from '@guards/access-token.guard';
+import { ReviewModule } from './models/review/review.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -36,9 +39,15 @@ import { AuthModule } from './auth/auth.module';
 			})
 		}),
 		UserModule,
-		AuthModule
+		AuthModule,
+		ReviewModule
 	],
 	controllers: [],
-	providers: []
+	providers: [
+		{
+			provide: APP_GUARD,
+			useClass: AccessTokenGuard
+		}
+	]
 })
 export class AppModule {}
