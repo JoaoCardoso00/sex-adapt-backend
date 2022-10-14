@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
 import { CreateSuportDto } from './dto/create-suport.dto';
-import { UpdateSuportDto } from './dto/update-suport.dto';
+import { SuportEntity } from '@models/suport/entities/suport.entity';
+import { UserEntity } from '@user/entities/user.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { FindOneOptions, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class SuportService {
-	create(createSuportDto: CreateSuportDto) {
-		return 'This action adds a new suport';
+	constructor(
+		@InjectRepository(SuportEntity)
+		private suportRepository: Repository<SuportEntity>
+	) {}
+
+	async create(userId: string, createSuportDto: CreateSuportDto) {
+		try {
+			const suport = this.suportRepository.create({
+				user: userId as unknown as UserEntity,
+				...createSuportDto
+			});
+			await this.suportRepository.save(suport);
+			return suport;
+		} catch (error) {
+			return error;
+		}
 	}
 
-	findAll() {
-		return `This action returns all suport`;
+	async findAll() {
+		return await this.suportRepository.find({
+			relations: {
+				user: true
+			},
+			select: {
+				user: {
+					id: true,
+					email: true,
+					name: true
+				}
+			}
+		});
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} suport`;
+	async findOneOrFail(options: FindOneOptions<SuportEntity>) {
+		try {
+			return await this.suportRepository.findOneOrFail({
+				...options,
+				relations: {
+					user: true
+				},
+				select: {
+					user: {
+						id: true,
+						email: true,
+						name: true
+					}
+				}
+			});
+		} catch (error) {
+			throw new NotFoundException(error.message);
+		}
 	}
 
-	update(id: number, updateSuportDto: UpdateSuportDto) {
-		return `This action updates a #${id} suport`;
-	}
-
-	remove(id: number) {
-		return `This action removes a #${id} suport`;
+	async remove(id: string) {
+		await this.findOneOrFail({
+			where: { id }
+		});
+		await this.suportRepository.delete({ id });
+		return;
 	}
 }

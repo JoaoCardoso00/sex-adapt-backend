@@ -34,7 +34,7 @@ import { SuportModule } from './models/suport/suport.module';
 				username: configService.get('DB_USERNAME'),
 				password: configService.get('DB_PASSWORD'),
 				database: configService.get('DB'),
-				entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+				entities: [join(__dirname, '**', "/models/", '*.entity.{ts,js}')],
 
 				synchronize: true
 			})
