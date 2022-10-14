@@ -8,10 +8,12 @@ import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
 import { SuportModule } from './models/suport/suport.module';
-import configEnvConfig from '@config/env/configEnv.config';
 @Module({
 	imports: [
-		ConfigModule.forRoot({ load: [configEnvConfig] }),
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: ['.env.local']
+		}),
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
@@ -30,4 +32,4 @@ import configEnvConfig from '@config/env/configEnv.config';
 		}
 	]
 })
-export class AppModule {}
+export class AppModule { }
