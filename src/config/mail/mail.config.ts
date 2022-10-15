@@ -6,8 +6,8 @@ import { join } from 'path';
 
 @Injectable()
 export class MailerConfigService implements MailerOptionsFactory {
-  constructor(private configService: ConfigService) { }
-  
+  constructor(private configService: ConfigService) {}
+
   createMailerOptions(): MailerOptions | Promise<MailerOptions> {
     return {
       transport: {
@@ -23,12 +23,12 @@ export class MailerConfigService implements MailerOptionsFactory {
         from: '"Fabio Neves" <fabinhoneves09@gmail.com>'
       },
       template: {
-        dir: join(__dirname, '**', '**', 'template'),
+        dir: join(process.cwd(), 'src', 'services', 'mail', 'templates'),
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true
         }
       }
-    }
-  };
+    };
+  }
 }

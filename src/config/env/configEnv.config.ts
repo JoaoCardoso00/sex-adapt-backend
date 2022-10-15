@@ -1,8 +1,6 @@
-import Joi from 'joi';
+import * as Joi from 'joi';
 
 export default () => ({
-  isGlobal: true,
-  envFilePath: ['.env.local'],
   validationSchema: Joi.object({
     DB_HOST: Joi.string(),
     DB_PORT: Joi.number(),

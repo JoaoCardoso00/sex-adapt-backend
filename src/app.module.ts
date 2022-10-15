@@ -13,7 +13,7 @@ import { ReviewModule } from './models/review/review.module';
 import { MailModule } from './services/mail/mail.module';
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [configEnvConfig] }),
+    ConfigModule.forRoot({ isGlobal: true, load: [configEnvConfig] }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
