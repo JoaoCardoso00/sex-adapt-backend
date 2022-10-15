@@ -56,10 +56,17 @@ export class AuthService {
     });
   }
 
+<<<<<<< HEAD
   async updateRefreshToken(userId: string, refresh_token: string) {
     const user = await this.userService.findOneById(userId);
     if (!user || !user.hashedRefreshToken)
       throw new NotFoundException('User not found');
+=======
+	async updateRefreshToken(userId: string, refresh_token: string) {
+		const user = await this.userService.findOneById(userId);
+		if (!user || !user.hashedRefreshToken)
+			throw new NotFoundException('User not found');
+>>>>>>> fix/config
 
     const rt_match = await verify(user.hashedRefreshToken, refresh_token);
     if (!rt_match) throw new UnauthorizedException();
