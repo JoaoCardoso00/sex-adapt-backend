@@ -6,7 +6,8 @@ import { join } from 'path';
 
 @Injectable()
 export class MailerConfigService implements MailerOptionsFactory {
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) { }
+  
   createMailerOptions(): MailerOptions | Promise<MailerOptions> {
     return {
       transport: {
@@ -16,18 +17,18 @@ export class MailerConfigService implements MailerOptionsFactory {
         auth: {
           user: this.configService.get('MAILER_USER'),
           pass: this.configService.get('MAILER_PASSWORD')
-        },
-        defaults: {
-          from: '"Fabio Neves" <fabinhoneves09@gmail.com>'
-        },
-        template: {
-          dir: join(__dirname, '**', '**', 'template'),
-          adapter: new HandlebarsAdapter(),
-          options: {
-            strict: true
-          }
+        }
+      },
+      defaults: {
+        from: '"Fabio Neves" <fabinhoneves09@gmail.com>'
+      },
+      template: {
+        dir: join(__dirname, '**', '**', 'template'),
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true
         }
       }
-    };
-  }
+    }
+  };
 }
