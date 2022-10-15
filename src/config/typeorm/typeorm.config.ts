@@ -5,18 +5,18 @@ import { join } from 'path';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-	constructor(private configService: ConfigService) {}
-	createTypeOrmOptions(): TypeOrmModuleOptions {
-		return {
-			type: 'postgres',
-			host: this.configService.get('DB_HOST'),
-			port: this.configService.get('DB_PORT'),
-			username: this.configService.get('DB_USERNAME'),
-			password: this.configService.get('DB_PASSWORD'),
-			database: this.configService.get('DB'),
-			entities: [join(__dirname, '**', 'models', '*.entity.{ts,js}')],
+  constructor(private configService: ConfigService) {}
+  createTypeOrmOptions(): TypeOrmModuleOptions {
+    return {
+      type: 'postgres',
+      host: this.configService.get('DB_HOST'),
+      port: this.configService.get('DB_PORT'),
+      username: this.configService.get('DB_USERNAME'),
+      password: this.configService.get('DB_PASSWORD'),
+      database: this.configService.get('DB'),
+      entities: [join(__dirname, '**', 'models', '*.entity.{ts,js}')],
 
-			synchronize: true
-		};
-	}
+      synchronize: true
+    };
+  }
 }

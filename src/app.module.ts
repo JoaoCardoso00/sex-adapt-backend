@@ -12,15 +12,15 @@ import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
 import { MailModule } from './services/mail/mail.module';
 @Module({
-	imports: [
-		ConfigModule.forRoot({ load: [configEnvConfig] }),
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useClass: TypeOrmConfigService
-		}),
-		UserModule,
-		AuthModule,
+  imports: [
+    ConfigModule.forRoot({ load: [configEnvConfig] }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useClass: TypeOrmConfigService
+    }),
+    UserModule,
+    AuthModule,
     ReviewModule,
     MailModule
   ],

@@ -15,14 +15,9 @@ export class UserEntity extends BaseEntity implements IUserEntity {
   @Column()
   name: string;
 
-<<<<<<< HEAD
   @OneToMany(() => ReviewEntity, (review) => review.user, { cascade: true })
   @JoinColumn({ name: 'review_id' })
   reviews: ReviewEntity[];
-=======
-	@Column({ nullable: true })
-	hashedRefreshToken: string;
->>>>>>> fix/config
 
   @Column({ nullable: true })
   hashedRefreshToken: string;
