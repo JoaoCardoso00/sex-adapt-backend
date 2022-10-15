@@ -6,9 +6,9 @@ import { ReviewService } from './review.service';
 import { ReviewController } from './review.controller';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([ReviewEntity, UserEntity])],
-	controllers: [ReviewController],
-	providers: [ReviewService],
-	exports: [ReviewService]
+  imports: [TypeOrmModule.forFeature([ReviewEntity, UserEntity])],
+  controllers: [ReviewController],
+  providers: [ReviewService],
+  exports: [ReviewService]
 })
 export class ReviewModule {}
