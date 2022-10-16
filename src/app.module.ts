@@ -1,5 +1,7 @@
 import { TypeOrmConfigService } from './config/typeorm/typeorm.config';
+import { MailerConfigService } from './config/mail/mail.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { UserModule } from './models/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,27 +11,27 @@ import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
 import { SuportModule } from './models/suport/suport.module';
 @Module({
-	imports: [
-		ConfigModule.forRoot({
-			isGlobal: true,
-			envFilePath: ['.env.local']
-		}),
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useClass: TypeOrmConfigService
-		}),
-		UserModule,
-		AuthModule,
-		ReviewModule,
-		SuportModule
-	],
-	controllers: [],
-	providers: [
-		{
-			provide: APP_GUARD,
-			useClass: AccessTokenGuard
-		}
-	]
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env.local']
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useClass: TypeOrmConfigService
+    }),
+    UserModule,
+    AuthModule,
+    ReviewModule,
+    SuportModule
+  ],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AccessTokenGuard
+    }
+  ]
 })
-export class AppModule { }
+export class AppModule {}

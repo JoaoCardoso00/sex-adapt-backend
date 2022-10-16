@@ -6,14 +6,14 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
-	constructor(private readonly configService: ConfigService) {
-		super({
-			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-			secretOrKey: configService.get('JWT_SECRET')
-		});
-	}
+  constructor(private readonly configService: ConfigService) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: configService.get('JWT_SECRET')
+    });
+  }
 
-	validate(payload: JwtPayload) {
-		return payload;
-	}
+  validate(payload: JwtPayload) {
+    return payload;
+  }
 }

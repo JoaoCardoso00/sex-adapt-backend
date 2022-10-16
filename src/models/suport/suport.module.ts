@@ -5,8 +5,8 @@ import { SuportService } from './suport.service';
 import { SuportController } from './suport.controller';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([SuportEntity])],
-	controllers: [SuportController],
-	providers: [SuportService]
+  imports: [TypeOrmModule.forFeature([SuportEntity])],
+  controllers: [SuportController],
+  providers: [SuportService]
 })
 export class SuportModule {}

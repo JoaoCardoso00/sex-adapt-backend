@@ -7,64 +7,64 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class SuportService {
-	constructor(
-		@InjectRepository(SuportEntity)
-		private suportRepository: Repository<SuportEntity>
-	) {}
+  constructor(
+    @InjectRepository(SuportEntity)
+    private suportRepository: Repository<SuportEntity>
+  ) {}
 
-	async create(userId: string, createSuportDto: CreateSuportDto) {
-		try {
-			const suport = this.suportRepository.create({
-				user: userId as unknown as UserEntity,
-				...createSuportDto
-			});
-			await this.suportRepository.save(suport);
-			return suport;
-		} catch (error) {
-			return error;
-		}
-	}
+  async create(userId: string, createSuportDto: CreateSuportDto) {
+    try {
+      const suport = this.suportRepository.create({
+        user: userId as unknown as UserEntity,
+        ...createSuportDto
+      });
+      await this.suportRepository.save(suport);
+      return suport;
+    } catch (error) {
+      return error;
+    }
+  }
 
-	async findAll() {
-		return await this.suportRepository.find({
-			relations: {
-				user: true
-			},
-			select: {
-				user: {
-					id: true,
-					email: true,
-					name: true
-				}
-			}
-		});
-	}
+  async findAll() {
+    return await this.suportRepository.find({
+      relations: {
+        user: true
+      },
+      select: {
+        user: {
+          id: true,
+          email: true,
+          name: true
+        }
+      }
+    });
+  }
 
-	async findOneOrFail(options: FindOneOptions<SuportEntity>) {
-		try {
-			return await this.suportRepository.findOneOrFail({
-				...options,
-				relations: {
-					user: true
-				},
-				select: {
-					user: {
-						id: true,
-						email: true,
-						name: true
-					}
-				}
-			});
-		} catch (error) {
-			throw new NotFoundException(error.message);
-		}
-	}
+  async findOneOrFail(options: FindOneOptions<SuportEntity>) {
+    try {
+      return await this.suportRepository.findOneOrFail({
+        ...options,
+        relations: {
+          user: true
+        },
+        select: {
+          user: {
+            id: true,
+            email: true,
+            name: true
+          }
+        }
+      });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
-	async remove(id: string) {
-		await this.findOneOrFail({
-			where: { id }
-		});
-		await this.suportRepository.delete({ id });
-		return;
-	}
+  async remove(id: string) {
+    await this.findOneOrFail({
+      where: { id }
+    });
+    await this.suportRepository.delete({ id });
+    return;
+  }
 }
