@@ -1,3 +1,4 @@
+import { MailService } from './../../services/mail/mail.service';
 import { CreateSuportDto } from './dto/create-suport.dto';
 import { SuportEntity } from '@models/suport/entities/suport.entity';
 import { UserEntity } from '@user/entities/user.entity';
@@ -9,16 +10,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class SuportService {
   constructor(
     @InjectRepository(SuportEntity)
-    private suportRepository: Repository<SuportEntity>
-  ) {}
+    private suportRepository: Repository<SuportEntity>,
+    private readonly mailService: MailService
+  ) { }
 
-  async create(userId: string, createSuportDto: CreateSuportDto) {
+  async create(userId: string, message: string) {
     try {
+
       const suport = this.suportRepository.create({
         user: userId as unknown as UserEntity,
-        ...createSuportDto
+        message
       });
       await this.suportRepository.save(suport);
+      await this.mailService.sendSuportMail({ subject: 'Suporte', title: 'Erro', subtitle: '', content: message })
       return suport;
     } catch (error) {
       return error;

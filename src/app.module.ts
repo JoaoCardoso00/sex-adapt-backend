@@ -1,3 +1,4 @@
+import { MailModule } from './services/mail/mail.module';
 import { TypeOrmConfigService } from './config/typeorm/typeorm.config';
 import { MailerConfigService } from './config/mail/mail.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,7 +15,6 @@ import { SuportModule } from './models/suport/suport.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.local']
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -24,7 +24,8 @@ import { SuportModule } from './models/suport/suport.module';
     UserModule,
     AuthModule,
     ReviewModule,
-    SuportModule
+    SuportModule,
+    MailModule
   ],
   controllers: [],
   providers: [
