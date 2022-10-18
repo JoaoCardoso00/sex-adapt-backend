@@ -1,5 +1,6 @@
+import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as morgan from 'morgan';
 import { Request } from 'express';
@@ -7,6 +8,7 @@ import { Request } from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalGuards(new AccessTokenGuard(new Reflector()))
   morgan.token('body', (req: Request) => {
     return JSON.stringify(req.body);
   });

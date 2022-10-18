@@ -23,26 +23,22 @@ export class SuportController {
   @HttpCode(HttpStatus.CREATED)
   @Public()
   async create(
-    // @GetCurrentUserId() userId: string,
+    @GetCurrentUserId() userId: string,
     @Body() createSuportDto: CreateSuportDto,
   ) {
-    return await this.suportService.create(createSuportDto.userId, createSuportDto.message);
-    // return userId
+    return await this.suportService.create(userId, createSuportDto.message);
   }
 
-  @UseGuards(RefreshTokenGuard)
   @Get()
   findAll() {
     return this.suportService.findAll();
   }
 
-  @UseGuards(RefreshTokenGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.suportService.findOneOrFail({ where: { id } });
   }
 
-  @UseGuards(RefreshTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.suportService.remove(id);

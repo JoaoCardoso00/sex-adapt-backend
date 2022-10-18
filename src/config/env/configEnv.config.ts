@@ -7,7 +7,8 @@ export default () => ({
     DB_USERNAME: Joi.string(),
     DB_PASSWORD: Joi.string(),
     DB: Joi.string(),
-    JWT_SECRET: Joi.string(),
+    JWT_ACCESS_SECRET: Joi.string(),
+    JWT_REFRESH_SECRET: Joi.string(),
     JWT_EXPIRES_IN: Joi.string()
   })
 });

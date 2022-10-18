@@ -1,3 +1,4 @@
+import { JwtPayload } from './@types/jwt-payload.type';
 import { LoginFailedException } from './../common/exceptions/login-failed.exception';
 import { NotFoundException } from './../common/exceptions/not-found.exception';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';
@@ -15,7 +16,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private readonly configService: ConfigService
-  ) {}
+  ) { }
 
   //DB CHANGES
   async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
@@ -85,25 +86,21 @@ export class AuthService {
   }
 
   async getTokens(userId: string, email: string): Promise<Tokens> {
+    const jwtPayload: JwtPayload = {
+      sub: userId,
+      email
+    }
     const [access_token, refresh_token] = await Promise.all([
-      this.jwtService.signAsync(
+      this.jwtService.signAsync(jwtPayload,
         {
-          sub: userId,
-          email
-        },
-        {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_AT_EXPIRES_IN')
+          secret: this.configService.get('JWT_ACCESS_SECRET'),
+          expiresIn: '15m'
         }
       ),
-      this.jwtService.signAsync(
+      this.jwtService.signAsync(jwtPayload,
         {
-          sub: userId,
-          email
-        },
-        {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_RT_EXPIRES_IN')
+          secret: this.configService.get('JWT_REFRESH_SECRET'),
+          expiresIn: '7d'
         }
       )
     ]);

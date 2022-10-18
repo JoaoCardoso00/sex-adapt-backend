@@ -28,11 +28,6 @@ import { SuportModule } from './models/suport/suport.module';
     MailModule
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AccessTokenGuard
-    }
-  ]
+  providers: []
 })
 export class AppModule {}
