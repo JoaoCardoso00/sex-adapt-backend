@@ -16,7 +16,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private readonly configService: ConfigService
-  ) { }
+  ) {}
 
   //DB CHANGES
   async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
@@ -89,20 +89,16 @@ export class AuthService {
     const jwtPayload: JwtPayload = {
       sub: userId,
       email
-    }
+    };
     const [access_token, refresh_token] = await Promise.all([
-      this.jwtService.signAsync(jwtPayload,
-        {
-          secret: this.configService.get('JWT_ACCESS_SECRET'),
-          expiresIn: '15m'
-        }
-      ),
-      this.jwtService.signAsync(jwtPayload,
-        {
-          secret: this.configService.get('JWT_REFRESH_SECRET'),
-          expiresIn: '7d'
-        }
-      )
+      this.jwtService.signAsync(jwtPayload, {
+        secret: this.configService.get('JWT_ACCESS_SECRET'),
+        expiresIn: '10h'
+      }),
+      this.jwtService.signAsync(jwtPayload, {
+        secret: this.configService.get('JWT_REFRESH_SECRET'),
+        expiresIn: '7d'
+      })
     ]);
 
     return {

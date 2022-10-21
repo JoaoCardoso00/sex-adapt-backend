@@ -12,13 +12,14 @@ export class MailService {
       to: user.email,
       subject: email.subject,
       template: 'baseEmail.hbs',
-      context: {...email}
+      context: { ...email }
     });
   }
 
-  async sendSuportMail(email: BaseEmail) {
+  async sendSuportMail(email: BaseEmail, from: string) {
     return this.mailerService.sendMail({
-      to: 'fabinhoneves09@gmail.com',
+      from: from,
+      to: 'sex.adapt.sac@gmail.com',
       subject: email.subject,
       template: 'baseEmail.hbs',
       context: {...email}

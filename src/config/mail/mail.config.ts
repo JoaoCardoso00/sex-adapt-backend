@@ -19,9 +19,6 @@ export class MailerConfigService implements MailerOptionsFactory {
           pass: this.configService.get('MAILER_PASSWORD')
         }
       },
-      defaults: {
-        from: '"Fabio Neves" <fabinhoneves09@gmail.com>'
-      },
       template: {
         dir: join(process.cwd(), 'src', 'services', 'mail', 'templates'),
         adapter: new HandlebarsAdapter(),

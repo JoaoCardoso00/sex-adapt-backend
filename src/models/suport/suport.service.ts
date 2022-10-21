@@ -14,15 +14,37 @@ export class SuportService {
     private readonly mailService: MailService
   ) { }
 
-  async create(userId: string, message: string) {
+  async create(userId: string, createSuportDto: CreateSuportDto) {
     try {
-
       const suport = this.suportRepository.create({
         user: userId as unknown as UserEntity,
-        message
+        ...createSuportDto
       });
+
       await this.suportRepository.save(suport);
-      await this.mailService.sendSuportMail({ subject: 'Suporte', title: 'Erro', subtitle: '', content: message })
+
+      const supportFinder = await this.suportRepository.findOne({
+        where: {
+          id: userId
+        },
+        relations: ['user'],
+        select: {
+          user: {
+            email: true
+          }
+        }
+      })
+
+      await this.mailService.sendSuportMail(
+        {
+          subject: createSuportDto.subject,
+          title: createSuportDto.title,
+          subtitle: createSuportDto.subtitle,
+          content: createSuportDto.message
+        },
+        supportFinder.user.email
+      );
+
       return suport;
     } catch (error) {
       return error;

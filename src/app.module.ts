@@ -14,7 +14,7 @@ import { SuportModule } from './models/suport/suport.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

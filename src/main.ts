@@ -8,7 +8,7 @@ import { Request } from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalGuards(new AccessTokenGuard(new Reflector()))
+  app.useGlobalGuards(new AccessTokenGuard(new Reflector()));
   morgan.token('body', (req: Request) => {
     return JSON.stringify(req.body);
   });

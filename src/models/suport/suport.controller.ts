@@ -12,8 +12,6 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { GetCurrentUserId, Public } from 'src/common/decorators';
-import { RefreshTokenGuard } from '@guards/refresh-token.guard';
-import { AccessTokenGuard } from '@guards/access-token.guard';
 
 @Controller('suport')
 export class SuportController {
@@ -21,12 +19,11 @@ export class SuportController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @Public()
   async create(
     @GetCurrentUserId() userId: string,
-    @Body() createSuportDto: CreateSuportDto,
+    @Body() createSuportDto: CreateSuportDto
   ) {
-    return await this.suportService.create(userId, createSuportDto.message);
+    return await this.suportService.create(userId, createSuportDto);
   }
 
   @Get()
