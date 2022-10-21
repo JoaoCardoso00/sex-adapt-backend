@@ -22,7 +22,7 @@ export class MailService {
       to: 'sex.adapt.sac@gmail.com',
       subject: email.subject,
       template: 'baseEmail.hbs',
-      context: {...email}
+      context: { ...email }
     });
   }
 }

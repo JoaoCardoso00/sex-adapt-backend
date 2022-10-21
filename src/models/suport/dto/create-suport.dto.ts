@@ -16,5 +16,4 @@ export class CreateSuportDto {
   @IsString({ message: 'O subtitulo deve ser um texto.' })
   @IsNotEmpty({ message: 'O subtitulo é obrigatório.' })
   subtitle: string;
-
 }

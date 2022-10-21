@@ -12,7 +12,7 @@ export class SuportService {
     @InjectRepository(SuportEntity)
     private suportRepository: Repository<SuportEntity>,
     private readonly mailService: MailService
-  ) { }
+  ) {}
 
   async create(userId: string, createSuportDto: CreateSuportDto) {
     try {
@@ -33,7 +33,7 @@ export class SuportService {
             email: true
           }
         }
-      })
+      });
 
       await this.mailService.sendSuportMail(
         {
