@@ -1,5 +1,3 @@
-import { CreateRecoverPasswordDto } from './../models/recover-password/dto/create-recover-password.dto';
-import { RecoverPasswordService } from './../services/recover-password/recover-password.service';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';
 import { RefreshTokenGuard } from './../common/guards/refresh-token.guard';
 import { AuthDto } from './dto/auth.dto';
@@ -18,13 +16,11 @@ import {
   GetCurrentUserId,
   GetCurrentUser
 } from 'src/common/decorators';
-import { token } from 'morgan';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private recoverService: RecoverPasswordService
   ) {}
 
   @Public()
@@ -56,6 +52,4 @@ export class AuthController {
   ) {
     return this.authService.updateRefreshToken(userId, refreshToken);
   }
-
- 
 }

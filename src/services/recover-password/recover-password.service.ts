@@ -1,25 +1,39 @@
+import { UserService } from './../../models/user/user.service';
+import { UserEntity } from './../../models/user/entities/user.entity';
+import { RecoverPasswordEntity } from './../../models/recover-password/entities/recover-password.entity';
+import { Repository } from 'typeorm';
 import { CreateRecoverPasswordDto } from '@models/recover-password/dto/create-recover-password.dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RecoverPasswordService {
-  create(createRecoverPasswordDto: CreateRecoverPasswordDto) {
-    return 'This action adds a new recoverPassword';
+  constructor(
+    private readonly recoverRepository: Repository<RecoverPasswordEntity>,
+    private userService: UserService
+  ) { }
+
+  async create(createRecoverPasswordDto: CreateRecoverPasswordDto, userId: string) {
+    const recover = this.recoverRepository.create({
+      email: createRecoverPasswordDto.email,
+      user: userId as unknown as UserEntity
+    })
+
+    return this.recoverRepository.save(recover)
   }
 
-  findAll() {
-    return `This action returns all recoverPassword`;
+  async confirmToken(token: number, email: string) {
+    return (await this.recoverRepository.findOne({
+      where: {
+        email
+      },
+      select: ['token']
+    })).token === token
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} recoverPassword`;
-  }
+  async changePassword(email: string, password: string) {
+    const user = await this.userService.findOneOrFail({ where: { email } })
 
-  update(id: number) {
-    return `This action updates a #${id} recoverPassword`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} recoverPassword`;
+    await this.userService.update(user.id, { password })
+    return;
   }
 }
