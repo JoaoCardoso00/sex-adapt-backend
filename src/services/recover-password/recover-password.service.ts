@@ -10,30 +10,37 @@ export class RecoverPasswordService {
   constructor(
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
     private userService: UserService
-  ) { }
+  ) {}
 
-  async create(createRecoverPasswordDto: CreateRecoverPasswordDto, userId: string) {
+  async create(
+    createRecoverPasswordDto: CreateRecoverPasswordDto,
+    userId: string
+  ) {
     const recover = this.recoverRepository.create({
       email: createRecoverPasswordDto.email,
       user: userId as unknown as UserEntity
-    })
+    });
 
-    return this.recoverRepository.save(recover)
+    return this.recoverRepository.save(recover);
   }
 
   async confirmToken(token: number, email: string) {
-    return (await this.recoverRepository.findOne({
-      where: {
-        email
-      },
-      select: ['token']
-    })).token === token
+    return (
+      (
+        await this.recoverRepository.findOne({
+          where: {
+            email
+          },
+          select: ['token']
+        })
+      ).token === token
+    );
   }
 
   async changePassword(email: string, password: string) {
-    const user = await this.userService.findOneOrFail({ where: { email } })
+    const user = await this.userService.findOneOrFail({ where: { email } });
 
-    await this.userService.update(user.id, { password })
+    await this.userService.update(user.id, { password });
     return;
   }
 }

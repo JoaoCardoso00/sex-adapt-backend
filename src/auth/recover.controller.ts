@@ -4,12 +4,15 @@ import { RecoverPasswordService } from '@services/recover-password/recover-passw
 
 @Controller('recover')
 export class RecoverController {
-  constructor(private recoverService: RecoverPasswordService) { }
+  constructor(private recoverService: RecoverPasswordService) {}
 
   @Post()
   @HttpCode(HttpStatus.CONTINUE)
-  recoverPassword(@Body() recoverPasswordDto: CreateRecoverPasswordDto, @Body() userId: string) {
-    return this.recoverService.create(recoverPasswordDto, userId)
+  recoverPassword(
+    @Body() recoverPasswordDto: CreateRecoverPasswordDto,
+    @Body() userId: string
+  ) {
+    return this.recoverService.create(recoverPasswordDto, userId);
   }
 
   @Post('confirm')
