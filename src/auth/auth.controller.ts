@@ -57,21 +57,5 @@ export class AuthController {
     return this.authService.updateRefreshToken(userId, refreshToken);
   }
 
-  @Post('recover')
-  @HttpCode(HttpStatus.CONTINUE)
-  recoverPassword(@Body() recoverPasswordDto: CreateRecoverPasswordDto) {
-    return "Hello"
-  }
-
-  @Post('recover/confirm')
-  @HttpCode(HttpStatus.OK)
-  confirmRecoverPassword(@Body() token: number, @Body() email: string) {
-    return "Hello"
-  }
-
-  @Post('recover/changePassword')
-  @HttpCode(HttpStatus.OK)
-  changePassword(@Body() email: string, @Body() password: string) {
-    return "Hello"
-  }
+ 
 }
