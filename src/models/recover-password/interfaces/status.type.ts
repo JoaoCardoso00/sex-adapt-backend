@@ -1,1 +1,1 @@
-export type StatusType = "PENDING" | "CONFIRMED"
+export type StatusType = 'PENDING' | 'CONFIRMED';
