@@ -7,7 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecoverPasswordService } from './recover-password.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity]), UserModule],
+  imports: [
+    TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity]),
+    UserModule
+  ],
   controllers: [],
   providers: [RecoverPasswordService, UserService],
   exports: [RecoverPasswordService]

@@ -10,7 +10,12 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { RecoverController } from './recover.controller';
 
 @Module({
-  imports: [PassportModule, JwtModule.register({}), UserModule, RecoverPasswordModule],
+  imports: [
+    PassportModule,
+    JwtModule.register({}),
+    UserModule,
+    RecoverPasswordModule
+  ],
   controllers: [AuthController, RecoverController],
   providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy]
 })
