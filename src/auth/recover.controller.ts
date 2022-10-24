@@ -1,3 +1,4 @@
+import { Public } from '@decorators/*';
 import { CreateRecoverPasswordDto } from '@models/recover-password';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { RecoverPasswordService } from '@services/recover-password/recover-password.service';
@@ -7,6 +8,7 @@ export class RecoverController {
   constructor(private recoverService: RecoverPasswordService) {}
 
   @Post()
+  @Public()
   @HttpCode(HttpStatus.CONTINUE)
   recoverPassword(
     @Body() recoverPasswordDto: CreateRecoverPasswordDto,

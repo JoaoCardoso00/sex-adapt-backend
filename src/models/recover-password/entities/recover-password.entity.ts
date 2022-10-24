@@ -5,17 +5,16 @@ import { IRecoverPassword } from './../interfaces/recover-password.interface';
 import { BaseEntity } from '@models/base';
 import { Column, Entity, OneToOne } from 'typeorm';
 
-@Entity({ name: 'recovers' })
+@Entity({ name: 'recover_passwords' })
 export class RecoverPasswordEntity
   extends BaseEntity
-  implements IRecoverPassword
-{
+  implements IRecoverPassword {
   @OneToOne(() => UserEntity, (user) => user.recoverPassword, {
     onDelete: 'CASCADE'
   })
   user: UserEntity;
 
-  @Column({ default: () => generateRandomDigits(0, 9999999), insert: false })
+  @Column({ default: generateRandomDigits(0, 9999999), insert: false })
   token: number;
 
   @Column()
