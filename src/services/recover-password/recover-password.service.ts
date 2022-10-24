@@ -4,10 +4,12 @@ import { RecoverPasswordEntity } from './../../models/recover-password/entities/
 import { Repository } from 'typeorm';
 import { CreateRecoverPasswordDto } from '@models/recover-password/dto/create-recover-password.dto';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class RecoverPasswordService {
   constructor(
+    @InjectRepository(RecoverPasswordEntity)
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
     private userService: UserService
   ) {}

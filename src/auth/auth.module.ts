@@ -1,3 +1,4 @@
+import { RecoverPasswordModule } from './../services/recover-password/recover-password.module';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { UserModule } from '@models/user/user.module';
 import { Module } from '@nestjs/common';
@@ -9,7 +10,7 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { RecoverController } from './recover.controller';
 
 @Module({
-  imports: [PassportModule, JwtModule.register({}), UserModule],
+  imports: [PassportModule, JwtModule.register({}), UserModule, RecoverPasswordModule],
   controllers: [AuthController, RecoverController],
   providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy]
 })

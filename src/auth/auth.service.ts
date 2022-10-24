@@ -93,8 +93,8 @@ export class AuthService {
           email
         },
         {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_AT_EXPIRES_IN')
+          secret: this.configService.get('JWT_ACCESS_SECRET'),
+          expiresIn: this.configService.get('JWT_EXPIRES_IN')
         }
       ),
       this.jwtService.signAsync(
@@ -103,8 +103,8 @@ export class AuthService {
           email
         },
         {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_RT_EXPIRES_IN')
+          secret: this.configService.get('JWT_REFRESH_SECRET'),
+          expiresIn: this.configService.get('JWT_EXPIRES_IN')
         }
       )
     ]);
