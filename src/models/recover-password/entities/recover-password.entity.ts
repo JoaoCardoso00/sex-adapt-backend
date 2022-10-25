@@ -2,11 +2,18 @@ import { StatusType } from './../interfaces/status.type';
 import { generateRandomDigits } from './../../../utils/generateRandomDigits.util';
 import { IRecoverPassword } from './../interfaces/recover-password.interface';
 import { BaseEntity } from '@models/base';
-import { BeforeInsert, Column, CreateDateColumn, Entity, OneToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryColumn,
+  UpdateDateColumn
+} from 'typeorm';
 
 @Entity({ name: 'recover_passwords' })
-export class RecoverPasswordEntity
-  implements IRecoverPassword {
+export class RecoverPasswordEntity implements IRecoverPassword {
   @Column({ nullable: true, update: false })
   token: number;
 
@@ -24,6 +31,6 @@ export class RecoverPasswordEntity
 
   @BeforeInsert()
   defaultValues() {
-    this.token = generateRandomDigits(0, 9999999)
+    this.token = generateRandomDigits(0, 9999999);
   }
 }

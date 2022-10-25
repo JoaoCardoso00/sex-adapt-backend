@@ -13,20 +13,17 @@ export class RecoverPasswordService {
     @InjectRepository(RecoverPasswordEntity)
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
     private userService: UserService
-  ) { }
+  ) {}
 
-  async create(
-    createRecoverPasswordDto: CreateRecoverPasswordDto,
-  ) {
+  async create(createRecoverPasswordDto: CreateRecoverPasswordDto) {
     try {
       const recover = this.recoverRepository.create({
-        email: createRecoverPasswordDto.email,
+        email: createRecoverPasswordDto.email
       });
       return await this.recoverRepository.save(recover);
     } catch (err) {
-      return err
+      return err;
     }
-
   }
 
   async confirmToken(confirmTokenDto: ConfirmTokenDto) {
@@ -34,14 +31,17 @@ export class RecoverPasswordService {
       where: {
         email: confirmTokenDto.email
       }
-    })
+    });
 
-    if (!recover) return { ERROR: "ERRO" }
-    if (!(recover.token === confirmTokenDto.token)) return { ERRO: "ERRO" }
+    if (!recover) return { ERROR: 'ERRO' };
+    if (!(recover.token === confirmTokenDto.token)) return { ERRO: 'ERRO' };
 
-    return await this.recoverRepository.update({ email: confirmTokenDto.email }, {
-      status: 'CHANGING'
-    })
+    return await this.recoverRepository.update(
+      { email: confirmTokenDto.email },
+      {
+        status: 'CHANGING'
+      }
+    );
   }
 
   async changePassword(changePasswordDto: ChangePasswordDto) {
@@ -49,13 +49,16 @@ export class RecoverPasswordService {
       where: {
         email: changePasswordDto.email
       }
-    })
+    });
     if (!(recover.status === 'CHANGING')) {
-      const user = await this.userService.findOneOrFail({ where: { email: changePasswordDto.email } });
+      const user = await this.userService.findOneOrFail({
+        where: { email: changePasswordDto.email }
+      });
       if (user) {
-        return await this.userService.update(user.id, { password: changePasswordDto.password })
+        return await this.userService.update(user.id, {
+          password: changePasswordDto.password
+        });
       }
     }
-
   }
 }

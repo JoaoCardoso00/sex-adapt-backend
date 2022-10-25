@@ -4,7 +4,7 @@ import {
   IsNumber,
   IsString,
   Max,
-  Min,
+  Min
 } from 'class-validator';
 
 export class ConfirmTokenDto {
