@@ -18,7 +18,9 @@ export class CreateReviewDto {
   @Max(5, { message: HttpCustomMessages.VALIDATION.REVIEW.GRADE.REQUIRED })
   grade: number;
 
-  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.REQUIRED })
+  @IsNotEmpty({
+    message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.REQUIRED
+  })
   @IsString({ message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.INVALID })
   @MaxLength(125, {
     message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.LENGTH

@@ -1,9 +1,4 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Matches,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
 import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 
 export class ChangePasswordDto {

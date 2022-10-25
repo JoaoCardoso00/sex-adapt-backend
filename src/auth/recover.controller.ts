@@ -20,6 +20,7 @@ export class RecoverController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async recoverPassword(@Body() recoverPasswordDto: CreateRecoverPasswordDto) {
+    // return recoverPasswordDto;
     return await this.recoverService.create(recoverPasswordDto);
   }
 
