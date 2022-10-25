@@ -6,11 +6,12 @@ import {
   Max,
   Min
 } from 'class-validator';
+import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 
 export class ConfirmTokenDto {
-  @IsNotEmpty({ message: 'O e-mail é obrigátoria.' })
-  @IsString({ message: 'O e-mail deve ser um texto.' })
-  @IsEmail({ message: 'O e-mail é inválido.' })
+  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
+  @IsString({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
+  @IsEmail({ message: HttpCustomMessages.VALIDATION.EMAIL.REQUIRED })
   email: string;
 
   @IsNumber()

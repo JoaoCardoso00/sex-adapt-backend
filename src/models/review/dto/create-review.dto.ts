@@ -1,3 +1,4 @@
+import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 import {
   IsNotEmpty,
   IsNumber,
@@ -8,19 +9,19 @@ import {
 } from 'class-validator';
 
 export class CreateReviewDto {
-  @IsNotEmpty({ message: 'A nota de avaliação é obrigátoria.' })
+  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.REVIEW.GRADE.REQUIRED })
   @IsNumber(
     { maxDecimalPlaces: 1 },
-    { message: 'A nota de avaliação deve ser um número.' }
+    { message: HttpCustomMessages.VALIDATION.REVIEW.GRADE.INVALID }
   )
-  @Min(0, { message: 'A nota de avaliação deve ser maior que 0.' })
-  @Max(5, { message: 'A nota de avaliação deve ser menor que 5.' })
+  @Min(0, { message: HttpCustomMessages.VALIDATION.REVIEW.GRADE.REQUIRED })
+  @Max(5, { message: HttpCustomMessages.VALIDATION.REVIEW.GRADE.REQUIRED })
   grade: number;
 
-  @IsNotEmpty({ message: 'O comentário é obrigátorio.' })
-  @IsString({ message: 'O comentário deve ser um texto.' })
+  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.REQUIRED })
+  @IsString({ message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.INVALID })
   @MaxLength(125, {
-    message: 'O comentário deve ser menor que 125 caracteres.'
+    message: HttpCustomMessages.VALIDATION.REVIEW.COMMENT.LENGTH
   })
   comment: string;
 

@@ -3,20 +3,19 @@ import {
   IsNotEmpty,
   IsString,
   Matches,
-  MinLength
 } from 'class-validator';
+import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 
 export class ChangePasswordDto {
-  @IsNotEmpty({ message: 'O e-mail é obrigátoria.' })
-  @IsString({ message: 'O e-mail deve ser um texto.' })
-  @IsEmail({ message: 'O e-mail é inválido.' })
+  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
+  @IsString({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
+  @IsEmail({ message: HttpCustomMessages.VALIDATION.EMAIL.REQUIRED })
   email: string;
 
-  @MinLength(8, { message: 'A senha deve contar pelo menos 8 caracteres.' })
-  @IsString({ message: 'A senha deve ser um texto.' })
-  @IsNotEmpty({ message: 'A senha é obriǵatoria.' })
+  @IsString({ message: HttpCustomMessages.VALIDATION.PASSWORD.INVALID })
+  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.PASSWORD.REQUIRED })
   @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, {
-    message: 'A senha é muito fraca.'
+    message: HttpCustomMessages.VALIDATION.PASSWORD.WEAK
   })
   password: string;
 }

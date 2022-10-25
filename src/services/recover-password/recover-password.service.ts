@@ -50,7 +50,7 @@ export class RecoverPasswordService {
         email: changePasswordDto.email
       }
     });
-    if (!(recover.status === 'CHANGING')) {
+    if (recover.status === 'CHANGING') {
       const user = await this.userService.findOneOrFail({
         where: { email: changePasswordDto.email }
       });
