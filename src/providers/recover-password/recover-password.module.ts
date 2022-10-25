@@ -1,3 +1,4 @@
+import { MailModule } from './../../services/mail/mail.module';
 import { UserService } from '@models/user/user.service';
 import { UserEntity } from '@user/entities/user.entity';
 import { UserModule } from '@models/user/user.module';
@@ -9,7 +10,8 @@ import { RecoverPasswordService } from './recover-password.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity]),
-    UserModule
+    UserModule,
+    MailModule
   ],
   controllers: [],
   providers: [RecoverPasswordService, UserService],

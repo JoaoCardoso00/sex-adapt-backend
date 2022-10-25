@@ -1,3 +1,4 @@
+import { MailService } from './../../services/mail/mail.service';
 import { TokenInvalidException } from './../../common/exceptions/token-invalid.exception';
 import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 import { CreateRecoverPasswordDto } from './../../models/recover-password/dto/create-recover-password.dto';
@@ -16,7 +17,8 @@ export class RecoverPasswordService {
   constructor(
     @InjectRepository(RecoverPasswordEntity)
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
-    private userService: UserService
+    private userService: UserService,
+    private mailService: MailService
   ) {}
 
   async create(createRecoverPasswordDto: CreateRecoverPasswordDto) {
@@ -30,7 +32,13 @@ export class RecoverPasswordService {
       const recover = this.recoverRepository.create({
         email: createRecoverPasswordDto.email
       });
-      return await this.recoverRepository.save(recover);
+
+      const saved_recover = await this.recoverRepository.save(recover)
+
+      if(!saved_recover) throw new RecoverException('Erro inesperado ao salvar sua recuperação entre em contato com suporte.')
+      await this.mailService.mailRecoverToken(createRecoverPasswordDto.email, recover.token)
+
+      return;
     } catch (err) {
       return err;
     }

@@ -20,7 +20,7 @@ export class MailerConfigService implements MailerOptionsFactory {
         }
       },
       defaults: {
-        from: '"Fabio Neves" <fabinhoneves09@gmail.com>'
+        from: 'SexAdapt <sex.adapt.sac@gmail.com>'
       },
       template: {
         dir: join(process.cwd(), 'src', 'services', 'mail', 'templates'),
