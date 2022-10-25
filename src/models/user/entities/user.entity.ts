@@ -3,6 +3,7 @@ import { ReviewEntity } from './../../review/entities/review.entity';
 import { hash } from 'argon2';
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
@@ -27,19 +28,16 @@ export class UserEntity extends BaseEntity implements IUserEntity {
   @JoinColumn({ name: 'review_id' })
   reviews: ReviewEntity[];
 
-  @OneToOne(
-    () => RecoverPasswordEntity,
-    (recoverPassword) => recoverPassword.user,
-    { cascade: true }
-  )
-  @JoinColumn({ name: 'recover_password' })
-  recoverPassword: RecoverPasswordEntity;
-
   @Column({ nullable: true })
   hashedRefreshToken: string;
 
   @BeforeInsert()
   async hashPassword() {
+    this.password = await hash(this.password);
+  }
+
+  @BeforeUpdate()
+  async updatePassword() {
     this.password = await hash(this.password);
   }
 }

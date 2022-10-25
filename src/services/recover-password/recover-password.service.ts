@@ -1,10 +1,11 @@
+import { CreateRecoverPasswordDto } from './../../models/recover-password/dto/create-recover-password.dto';
 import { UserService } from './../../models/user/user.service';
-import { UserEntity } from './../../models/user/entities/user.entity';
 import { RecoverPasswordEntity } from './../../models/recover-password/entities/recover-password.entity';
 import { Repository } from 'typeorm';
-import { CreateRecoverPasswordDto } from '@models/recover-password/dto/create-recover-password.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfirmTokenDto } from '@models/recover-password/dto/confirm-token.dto';
+import { ChangePasswordDto } from '@models/recover-password/dto/change-password.dto';
 
 @Injectable()
 export class RecoverPasswordService {
@@ -12,37 +13,49 @@ export class RecoverPasswordService {
     @InjectRepository(RecoverPasswordEntity)
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
     private userService: UserService
-  ) {}
+  ) { }
 
   async create(
     createRecoverPasswordDto: CreateRecoverPasswordDto,
-    userId: string
   ) {
-    const recover = this.recoverRepository.create({
-      email: createRecoverPasswordDto.email,
-      user: userId as unknown as UserEntity
-    });
+    try {
+      const recover = this.recoverRepository.create({
+        email: createRecoverPasswordDto.email,
+      });
+      return await this.recoverRepository.save(recover);
+    } catch (err) {
+      return err
+    }
 
-    return this.recoverRepository.save(recover);
   }
 
-  async confirmToken(token: number, email: string) {
-    return (
-      (
-        await this.recoverRepository.findOne({
-          where: {
-            email
-          },
-          select: ['token']
-        })
-      ).token === token
-    );
+  async confirmToken(confirmTokenDto: ConfirmTokenDto) {
+    const recover = await this.recoverRepository.findOne({
+      where: {
+        email: confirmTokenDto.email
+      }
+    })
+
+    if (!recover) return { ERROR: "ERRO" }
+    if (!(recover.token === confirmTokenDto.token)) return { ERRO: "ERRO" }
+
+    return await this.recoverRepository.update({ email: confirmTokenDto.email }, {
+      status: 'CHANGING'
+    })
   }
 
-  async changePassword(email: string, password: string) {
-    const user = await this.userService.findOneOrFail({ where: { email } });
+  async changePassword(changePasswordDto: ChangePasswordDto) {
+    const recover = await this.recoverRepository.findOne({
+      where: {
+        email: changePasswordDto.email
+      }
+    })
+    if (!(recover.status === 'CHANGING')) {
+      const user = await this.userService.findOneOrFail({ where: { email: changePasswordDto.email } });
+      if (user) {
+        return await this.userService.update(user.id, { password: changePasswordDto.password })
+      }
+    }
 
-    await this.userService.update(user.id, { password });
-    return;
   }
 }
