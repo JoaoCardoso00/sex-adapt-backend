@@ -17,14 +17,15 @@ export class RecoverPasswordService {
     @InjectRepository(RecoverPasswordEntity)
     private readonly recoverRepository: Repository<RecoverPasswordEntity>,
     private userService: UserService
-  ) { }
+  ) {}
 
   async create(createRecoverPasswordDto: CreateRecoverPasswordDto) {
     try {
       const existsRecover = await this.recoverRepository.findOne({
         where: { email: createRecoverPasswordDto.email }
       });
-      if (existsRecover) throw new RecoverException(HttpCustomMessages.RECOVER.IN_PROGRESS);
+      if (existsRecover)
+        throw new RecoverException(HttpCustomMessages.RECOVER.IN_PROGRESS);
 
       const recover = this.recoverRepository.create({
         email: createRecoverPasswordDto.email
@@ -61,15 +62,19 @@ export class RecoverPasswordService {
         email: changePasswordDto.email
       }
     });
-    if (!recover) throw new RecoverException(HttpCustomMessages.RECOVER.NOT_FOUND)
-    if (recover.status !== 'CHANGING') throw new RecoverException(HttpCustomMessages.RECOVER.PENDING_CONFIRMATION)
+    if (!recover)
+      throw new RecoverException(HttpCustomMessages.RECOVER.NOT_FOUND);
+    if (recover.status !== 'CHANGING')
+      throw new RecoverException(
+        HttpCustomMessages.RECOVER.PENDING_CONFIRMATION
+      );
 
     const user = await this.userService.findOneOrFail({
       where: { email: changePasswordDto.email }
     });
 
-    if (!user) throw new NotFoundException(HttpCustomMessages.USER.NOT_FOUND)
-    await this.recoverRepository.delete({ email: changePasswordDto.email })
+    if (!user) throw new NotFoundException(HttpCustomMessages.USER.NOT_FOUND);
+    await this.recoverRepository.delete({ email: changePasswordDto.email });
     return await this.userService.update(user.id, {
       password: changePasswordDto.password
     });
