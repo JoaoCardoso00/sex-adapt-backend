@@ -33,6 +33,6 @@ export class RecoverController {
   @Put('changePassword')
   @HttpCode(HttpStatus.OK)
   async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
-    return await this.recoverService.changePassword(changePasswordDto)
+    return await this.recoverService.changePassword(changePasswordDto);
   }
 }

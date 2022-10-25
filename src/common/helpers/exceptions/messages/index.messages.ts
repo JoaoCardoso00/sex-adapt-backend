@@ -3,9 +3,13 @@ export const HttpCustomMessages = {
     LOGIN_FAILED: 'Credenciais de login inválidas.'
   },
   AUTHENTICATION: {},
+  USER: {
+    NOT_FOUND: 'Usuário não encontrado.'
+  },
   RECOVER: {
     NOT_FOUND: 'Recuperação não encontrada.',
     IN_PROGRESS: 'Recuperação em andamento.',
+    PENDING_CONFIRMATION: 'Por favor confirme o código enviado para seu email.',
     TOKEN: {
       INVALID: 'Token de recuperação inválido.',
       NOT_FOUND: 'Token de recupeção não encontrado.'
