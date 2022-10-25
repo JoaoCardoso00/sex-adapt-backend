@@ -17,7 +17,7 @@ export class MailService {
     });
   }
 
-  async mailRecoverToken(email: string, token: number){
+  async mailRecoverToken(email: string, token: number) {
     return await this.mailerService.sendMail({
       to: email,
       subject: 'Recuperação de senha',
@@ -25,6 +25,6 @@ export class MailService {
       context: {
         token
       }
-    })
+    });
   }
 }

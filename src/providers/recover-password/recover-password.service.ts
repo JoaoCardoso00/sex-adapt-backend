@@ -33,10 +33,16 @@ export class RecoverPasswordService {
         email: createRecoverPasswordDto.email
       });
 
-      const saved_recover = await this.recoverRepository.save(recover)
+      const saved_recover = await this.recoverRepository.save(recover);
 
-      if(!saved_recover) throw new RecoverException('Erro inesperado ao salvar sua recuperação entre em contato com suporte.')
-      await this.mailService.mailRecoverToken(createRecoverPasswordDto.email, recover.token)
+      if (!saved_recover)
+        throw new RecoverException(
+          'Erro inesperado ao salvar sua recuperação entre em contato com suporte.'
+        );
+      await this.mailService.mailRecoverToken(
+        createRecoverPasswordDto.email,
+        recover.token
+      );
 
       return;
     } catch (err) {
