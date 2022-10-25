@@ -21,9 +21,11 @@ export class RecoverPasswordService {
 
   async create(createRecoverPasswordDto: CreateRecoverPasswordDto) {
     try {
-      const existsRecover = await this.recoverRepository.findOne({where: {email: createRecoverPasswordDto.email}})
-      if(existsRecover) throw new RecoverInProgressException()
-      
+      const existsRecover = await this.recoverRepository.findOne({
+        where: { email: createRecoverPasswordDto.email }
+      });
+      if (existsRecover) throw new RecoverInProgressException();
+
       const recover = this.recoverRepository.create({
         email: createRecoverPasswordDto.email
       });
@@ -40,8 +42,10 @@ export class RecoverPasswordService {
       }
     });
 
-    if (!recover) throw new NotFoundException(HttpCustomMessages.RECOVER.NOT_FOUND);
-    if (!(recover.token === confirmTokenDto.token)) return new TokenInvalidException();
+    if (!recover)
+      throw new NotFoundException(HttpCustomMessages.RECOVER.NOT_FOUND);
+    if (!(recover.token === confirmTokenDto.token))
+      return new TokenInvalidException();
 
     return await this.recoverRepository.update(
       { email: confirmTokenDto.email },

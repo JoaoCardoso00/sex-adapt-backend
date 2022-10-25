@@ -1,4 +1,3 @@
-import { RecoverPasswordService } from './../services/recover-password/recover-password.service';
 import { LoginFailedException } from './../common/exceptions/login-failed.exception';
 import { NotFoundException } from './../common/exceptions/not-found.exception';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';

@@ -10,7 +10,7 @@ import {
   Post,
   Put
 } from '@nestjs/common';
-import { RecoverPasswordService } from '@services/recover-password/recover-password.service';
+import { RecoverPasswordService } from '@providers/recover-password/recover-password.service';
 
 @Public()
 @Controller('recover')
@@ -32,7 +32,7 @@ export class RecoverController {
 
   @Put('changePassword')
   @HttpCode(HttpStatus.OK)
-  changePassword(@Body() changePasswordDto: ChangePasswordDto) {
-    return 'Hello';
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    return await this.recoverService.changePassword(changePasswordDto)
   }
 }

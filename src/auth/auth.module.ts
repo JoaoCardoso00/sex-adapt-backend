@@ -1,4 +1,3 @@
-import { RecoverPasswordModule } from './../services/recover-password/recover-password.module';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { UserModule } from '@models/user/user.module';
 import { Module } from '@nestjs/common';
@@ -8,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { RecoverController } from './recover.controller';
+import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
 
 @Module({
   imports: [
