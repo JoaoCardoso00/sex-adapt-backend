@@ -13,7 +13,7 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
     PassportModule,
     JwtModule.register({}),
     UserModule,
-    AccessibilityModule,
+    AccessibilityModule
   ],
   controllers: [AuthController],
   providers: [AuthService, AccessTokenGuard, RefreshTokenStrategy]

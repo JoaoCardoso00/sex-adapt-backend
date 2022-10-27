@@ -9,11 +9,11 @@ import { AccessibilityModule } from '@providers/accessibility/accessibility.modu
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configEnvConfig], isGlobal: true }),
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useClass: TypeOrmConfigService
-		}),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useClass: TypeOrmConfigService
+    }),
     UserModule,
     AuthModule,
     AccessibilityModule
