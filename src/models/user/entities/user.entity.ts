@@ -1,9 +1,8 @@
 import { AccessibilityEntity } from './../../accessibility/entities/accessibility.entity';
-import { BeforeInsert, Column, Entity, OneToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, JoinTable, OneToOne } from 'typeorm';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 import { hashSync } from 'bcrypt';
-import { IAccessibilityEntity } from '@models/accessibility/interfaces/accessibility.interface';
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements IUserEntity {
   @Column({ unique: true })
@@ -17,12 +16,13 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 
   @OneToOne(
     () => AccessibilityEntity,
-    (accesibilities) => accesibilities.user,
+    (accessibilities) => accessibilities.user,
     {
       cascade: true
     }
   )
-  accessibilities: IAccessibilityEntity;
+  @JoinColumn({ name: 'accessibility_id' })
+  accessibilities: AccessibilityEntity;
 
   @Column({ nullable: true })
   hashedRefreshToken?: string;

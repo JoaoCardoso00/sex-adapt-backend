@@ -1,7 +1,8 @@
 import { IBaseEntity } from '@models/base/interfaces/base-entity.interface';
+import { IUserEntity } from '@models/user/interfaces';
 
 export interface IAccessibilityEntity extends IBaseEntity {
-  user: string | null;
+  user: IUserEntity;
   // establishment: string | null;
   elevator: boolean;
   bar: boolean;

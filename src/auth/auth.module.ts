@@ -1,4 +1,3 @@
-import { AccessibilityModule } from '@providers/accessibility/accessibility.module';
 import { UserModule } from '@models/user/user.module';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -13,7 +12,6 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
     PassportModule,
     JwtModule.register({}),
     UserModule,
-    AccessibilityModule
   ],
   controllers: [AuthController],
   providers: [AuthService, AccessTokenGuard, RefreshTokenStrategy]

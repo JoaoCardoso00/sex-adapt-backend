@@ -1,6 +1,6 @@
 import { BaseEntity } from '@models/base/entities/base-entity.entity';
 import { UserEntity } from '@models/user/entities/user.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { IAccessibilityEntity } from '../interfaces/accessibility.interface';
 
 @Entity({ name: 'accessibilities' })
@@ -11,7 +11,8 @@ export class AccessibilityEntity
   @OneToOne(() => UserEntity, (user) => user.accessibilities, {
     onDelete: 'CASCADE'
   })
-  user: string | null;
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 
   // @OneToOne(() => EstablishmentEntity, (establishment) => establishment.accessibilities, { onDelete: 'CASCADE' })
   // establishmentId: string | null;

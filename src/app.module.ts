@@ -5,7 +5,6 @@ import { UserModule } from './models/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import configEnvConfig from '@config/env/configEnv.config';
-import { AccessibilityModule } from '@providers/accessibility/accessibility.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configEnvConfig], isGlobal: true }),
@@ -16,7 +15,6 @@ import { AccessibilityModule } from '@providers/accessibility/accessibility.modu
     }),
     UserModule,
     AuthModule,
-    AccessibilityModule
   ],
   controllers: [],
   providers: []

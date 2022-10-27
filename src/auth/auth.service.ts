@@ -1,4 +1,3 @@
-import { AccessibilityEntity } from './../models/accessibility/entities/accessibility.entity';
 import { LoginFailedException } from './../common/exceptions/login-failed.exception';
 import { NotFoundException } from './../common/exceptions/not-found.exception';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';
@@ -9,29 +8,18 @@ import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '@models/user/user.service';
 import { Tokens } from './@types/tokens.type';
-import { AccessibilityService } from '@providers/accessibility/accessibility.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
-    private accessibilityService: AccessibilityService,
     private jwtService: JwtService,
     private readonly configService: ConfigService
   ) {}
 
   //DB CHANGES
   async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
-    const accessibility = await this.accessibilityService.create(
-      userInfo.accessibilities
-    );
-    const new_user = await this.userService.create({
-      email: userInfo.email,
-      name: userInfo.name,
-      password: userInfo.password,
-      hashedRefreshToken: null,
-      accessibilities: accessibility.id as unknown as AccessibilityEntity
-    });
+    const new_user = await this.userService.create(userInfo);
 
     const tokens = await this.getTokens(new_user.id, new_user.email);
     await this.updateRtHash(new_user.id, tokens.refresh_token);
