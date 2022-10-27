@@ -1,3 +1,4 @@
+import { ReviewModule } from './models/review/review.module';
 import { TypeOrmConfigService } from './config/typeorm/typeorm.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
@@ -14,7 +15,8 @@ import configEnvConfig from '@config/env/configEnv.config';
       useClass: TypeOrmConfigService
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    ReviewModule
   ],
   controllers: [],
   providers: []

@@ -28,8 +28,17 @@ export class UserService {
 
   async findAll() {
     return await this.usersRepository.find({
-      relations: ['accessibilities'],
-      select: ['email', 'id', 'name']
+      relations: ['reviews', 'accessibilities'],
+      select: {
+        email: true,
+        id: true,
+        name: true,
+        reviews: {
+          comment: true,
+          grade: true,
+          id: true
+        }
+      }
     });
   }
 
@@ -41,13 +50,17 @@ export class UserService {
     return await this.usersRepository.findOne({
       where: {
         email
-      }
+      },
+      relations: ['reviews', 'accessibilities']
     });
   }
 
   async findOneOrFail(options: FindOneOptions<UserEntity>) {
     try {
-      return await this.usersRepository.findOneOrFail(options);
+      return await this.usersRepository.findOneOrFail({
+        ...options,
+        relations: ['reviews', 'accessibilities']
+      });
     } catch (error) {
       throw new NotFoundException(error.message);
     }

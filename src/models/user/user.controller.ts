@@ -11,12 +11,14 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Public } from 'src/common/decorators';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @Public()
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.userService.create(createUserDto);
   }
@@ -37,20 +39,18 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateUserDto: UpdateUserDto
-  ) {
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete('/deleteByEmail/:email')
+  @Public()
   removeByEmail(@Param('email') email: string) {
     return this.userService.removeByEmail(email);
   }
 
   @Delete('/deleteById/:id')
-  removeById(@Param('id', ParseUUIDPipe) id: string) {
+  removeById(@Param('id') id: string) {
     return this.userService.removeById(id);
   }
 }
