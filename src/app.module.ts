@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { AccessibilityModule } from './models/accessibility/accessibility.module';
+import { AccessibilityModule } from './models/accessibility/accessibility.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -36,7 +38,8 @@ import { AuthModule } from './auth/auth.module';
 			})
 		}),
 		UserModule,
-		AuthModule
+		AuthModule,
+		AccessibilityModule
 	],
 	controllers: [],
 	providers: []
