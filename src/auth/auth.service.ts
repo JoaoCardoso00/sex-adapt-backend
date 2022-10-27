@@ -54,7 +54,8 @@ export class AuthService {
 
 	async updateRefreshToken(userId: string, refresh_token: string) {
 		const user = await this.userService.findOneById(userId);
-		if (!user || !user.hashedRefreshToken) throw new NotFoundException("User not found");
+		if (!user || !user.hashedRefreshToken)
+			throw new NotFoundException('User not found');
 
 		const rt_match = await compare(refresh_token, user.hashedRefreshToken);
 		if (!rt_match) throw new UnauthorizedException();

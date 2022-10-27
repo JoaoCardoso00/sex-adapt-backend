@@ -15,7 +15,9 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 	@Column()
 	name: string;
 
-	@OneToOne(() => AccessibilityEntity, (accesibilities) => accesibilities.user, { cascade: true })
+	@OneToOne(() => AccessibilityEntity, (accesibilities) => accesibilities.user, {
+		cascade: true
+	})
 	accessibilities: IAccessibilityEntity;
 
 	@Column({ nullable: true })
