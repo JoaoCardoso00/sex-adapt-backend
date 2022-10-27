@@ -8,11 +8,7 @@ import { AccessTokenGuard } from './strategies/access-token.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 
 @Module({
-  imports: [
-    PassportModule,
-    JwtModule.register({}),
-    UserModule,
-  ],
+  imports: [PassportModule, JwtModule.register({}), UserModule],
   controllers: [AuthController],
   providers: [AuthService, AccessTokenGuard, RefreshTokenStrategy]
 })

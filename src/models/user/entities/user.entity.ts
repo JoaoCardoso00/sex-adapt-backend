@@ -1,5 +1,12 @@
 import { AccessibilityEntity } from './../../accessibility/entities/accessibility.entity';
-import { BeforeInsert, Column, Entity, JoinColumn, JoinTable, OneToOne } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  OneToOne
+} from 'typeorm';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 import { hashSync } from 'bcrypt';

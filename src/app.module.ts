@@ -14,7 +14,7 @@ import configEnvConfig from '@config/env/configEnv.config';
       useClass: TypeOrmConfigService
     }),
     UserModule,
-    AuthModule,
+    AuthModule
   ],
   controllers: [],
   providers: []

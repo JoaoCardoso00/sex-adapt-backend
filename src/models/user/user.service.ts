@@ -17,10 +17,12 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const user = this.usersRepository.create(createUserDto);
-    const accessibility = this.accessibilityRepository.create(createUserDto.accessibilities)
-    user.accessibilities = accessibility
-    accessibility.user = user
-    await this.accessibilityRepository.save(accessibility)
+    const accessibility = this.accessibilityRepository.create(
+      createUserDto.accessibilities
+    );
+    user.accessibilities = accessibility;
+    accessibility.user = user;
+    await this.accessibilityRepository.save(accessibility);
     return await this.usersRepository.save(user);
   }
 
