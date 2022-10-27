@@ -5,6 +5,7 @@ import { AccessibilityService } from './accessibility.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AccessibilityEntity])],
-  providers: [AccessibilityService]
+  providers: [AccessibilityService],
+  exports: [AccessibilityService]
 })
 export class AccessibilityModule {}

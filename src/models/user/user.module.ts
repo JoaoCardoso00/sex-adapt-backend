@@ -1,4 +1,3 @@
-import { DatabasesModule } from './../../config/typeorm/typeorm.config';
 import { UserEntity } from './entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';

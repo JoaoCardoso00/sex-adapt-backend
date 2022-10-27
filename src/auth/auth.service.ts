@@ -59,10 +59,10 @@ export class AuthService {
     });
   }
 
-  async updateRefreshToken(userId: string, refresh_token: string) {
-    const user = await this.userService.findOneById(userId);
-    if (!user || !user.hashedRefreshToken)
-      throw new NotFoundException('User not found');
+	async updateRefreshToken(userId: string, refresh_token: string) {
+		const user = await this.userService.findOneById(userId);
+		if (!user || !user.hashedRefreshToken)
+			throw new NotFoundException('User not found');
 
     const rt_match = await compare(refresh_token, user.hashedRefreshToken);
     if (!rt_match) throw new UnauthorizedException();
@@ -95,8 +95,8 @@ export class AuthService {
           email
         },
         {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_AT_EXPIRES_IN')
+          secret: this.configService.get('JWT_ACCESS_SECRET'),
+          expiresIn: this.configService.get('JWT_EXPIRES_IN')
         }
       ),
       this.jwtService.signAsync(
@@ -105,8 +105,8 @@ export class AuthService {
           email
         },
         {
-          secret: this.configService.get('JWT_SECRET'),
-          expiresIn: this.configService.get('JWT_RT_EXPIRES_IN')
+          secret: this.configService.get('JWT_REFRESH_SECRET'),
+          expiresIn: this.configService.get('JWT_EXPIRES_IN')
         }
       )
     ]);
