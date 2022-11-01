@@ -11,6 +11,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
 import { MailModule } from './services/mail/mail.module';
+import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [configEnvConfig] }),
@@ -22,7 +23,8 @@ import { MailModule } from './services/mail/mail.module';
     UserModule,
     AuthModule,
     ReviewModule,
-    MailModule
+    MailModule,
+    RecoverPasswordModule
   ],
   controllers: [],
   providers: [

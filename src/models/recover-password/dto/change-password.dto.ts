@@ -1,13 +1,7 @@
-import { HttpCustomMessages } from './../../../common/helpers/exceptions/messages/index.messages';
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Matches,
-  MinLength
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { HttpCustomMessages } from 'src/common/helpers/exceptions/messages/index.messages';
 
-export class CreateUserDto {
+export class ChangePasswordDto {
   @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
   @IsString({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
   @IsEmail({ message: HttpCustomMessages.VALIDATION.EMAIL.REQUIRED })
@@ -19,10 +13,4 @@ export class CreateUserDto {
     message: HttpCustomMessages.VALIDATION.PASSWORD.WEAK
   })
   password: string;
-
-  @IsString({ message: HttpCustomMessages.VALIDATION.NAME.INVALID })
-  @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.NAME.REQUIRED })
-  name: string;
-
-  hashedRefreshToken: string | null;
 }
