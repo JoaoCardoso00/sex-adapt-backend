@@ -8,64 +8,64 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ReviewService {
-	constructor(
-		@InjectRepository(ReviewEntity)
-		private reviewsRepository: Repository<ReviewEntity>
-	) {}
+  constructor(
+    @InjectRepository(ReviewEntity)
+    private reviewsRepository: Repository<ReviewEntity>
+  ) {}
 
-	async create(userId: string, createReviewDto: CreateReviewDto) {
-		try {
-			const review = this.reviewsRepository.create({
-				user: userId as unknown as UserEntity, // O proprio typeorm converte o id para a entidade de usuario por causa da configuração da relação la na entidade
-				...createReviewDto
-			});
-			await this.reviewsRepository.save(review);
-			return review;
-		} catch (error) {
-			return error;
-		}
-	}
+  async create(userId: string, createReviewDto: CreateReviewDto) {
+    try {
+      const review = this.reviewsRepository.create({
+        user: userId as unknown as UserEntity, // O proprio typeorm converte o id para a entidade de usuario por causa da configuração da relação la na entidade
+        ...createReviewDto
+      });
+      await this.reviewsRepository.save(review);
+      return review;
+    } catch (error) {
+      return error;
+    }
+  }
 
-	async findAll() {
-		return await this.reviewsRepository.find({
-			relations: {
-				user: true
-			},
-			select: {
-				user: {
-					id: true,
-					email: true,
-					name: true
-				}
-			}
-		});
-	}
+  async findAll() {
+    return await this.reviewsRepository.find({
+      relations: {
+        user: true
+      },
+      select: {
+        user: {
+          id: true,
+          email: true,
+          name: true
+        }
+      }
+    });
+  }
 
-	async findOneOrFail(options: FindOneOptions<ReviewEntity>) {
-		try {
-			return await this.reviewsRepository.findOneOrFail({
-				...options,
-				relations: {
-					user: true
-				},
-				select: {
-					user: {
-						id: true,
-						email: true,
-						name: true
-					}
-				}
-			});
-		} catch (error) {
-			throw new NotFoundException(error.message);
-		}
-	}
+  async findOneOrFail(options: FindOneOptions<ReviewEntity>) {
+    try {
+      return await this.reviewsRepository.findOneOrFail({
+        ...options,
+        relations: {
+          user: true
+        },
+        select: {
+          user: {
+            id: true,
+            email: true,
+            name: true
+          }
+        }
+      });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
-	async remove(id: string) {
-		await this.findOneOrFail({
-			where: { id }
-		});
-		await this.reviewsRepository.delete({ id });
-		return;
-	}
+  async remove(id: string) {
+    await this.findOneOrFail({
+      where: { id }
+    });
+    await this.reviewsRepository.delete({ id });
+    return;
+  }
 }

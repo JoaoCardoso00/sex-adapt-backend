@@ -6,24 +6,24 @@ import { IUserEntity } from './../interfaces/user.interface';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements IUserEntity {
-	@Column({ unique: true })
-	email: string;
+  @Column({ unique: true })
+  email: string;
 
-	@Column()
-	password: string;
+  @Column()
+  password: string;
 
-	@Column()
-	name: string;
+  @Column()
+  name: string;
 
-	@OneToMany(() => ReviewEntity, (review) => review.user, { cascade: true })
-	@JoinColumn({ name: 'review_id' })
-	reviews: ReviewEntity[];
+  @OneToMany(() => ReviewEntity, (review) => review.user, { cascade: true })
+  @JoinColumn({ name: 'review_id' })
+  reviews: ReviewEntity[];
 
-	@Column({ nullable: true })
-	hashedRefreshToken: string;
+  @Column({ nullable: true })
+  hashedRefreshToken: string;
 
-	@BeforeInsert()
-	async hashPassword() {
-		this.password = await hash(this.password);
-	}
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await hash(this.password);
+  }
 }
