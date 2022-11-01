@@ -1,10 +1,10 @@
 import { AccessibilityEntity } from './../../accessibility/entities/accessibility.entity';
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   OneToMany,
   OneToOne
 } from 'typeorm';
@@ -43,6 +43,11 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 
   @BeforeInsert()
   async hashPassword() {
+    this.password = await hash(this.password);
+  }
+
+  @BeforeUpdate()
+  async updatePassword() {
     this.password = await hash(this.password);
   }
 }
