@@ -1,6 +1,15 @@
+import { RecoverPasswordEntity } from './../../recover-password/entities/recover-password.entity';
 import { ReviewEntity } from './../../review/entities/review.entity';
 import { hash } from 'argon2';
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne
+} from 'typeorm';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 import { SuportEntity } from '@models/suport/entities/suport.entity';
@@ -29,6 +38,11 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 
   @BeforeInsert()
   async hashPassword() {
+    this.password = await hash(this.password);
+  }
+
+  @BeforeUpdate()
+  async updatePassword() {
     this.password = await hash(this.password);
   }
 }

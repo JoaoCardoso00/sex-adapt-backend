@@ -25,4 +25,15 @@ export class MailService {
       context: { ...email }
     });
   }
+
+  async mailRecoverToken(email: string, token: number) {
+    return await this.mailerService.sendMail({
+      to: email,
+      subject: 'Recuperação de senha',
+      template: 'baseEmail.hbs',
+      context: {
+        token
+      }
+    });
+  }
 }

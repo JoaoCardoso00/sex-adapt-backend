@@ -7,10 +7,17 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
+import { RecoverController } from './recover.controller';
+import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
 
 @Module({
-  imports: [PassportModule, JwtModule.register({}), UserModule, ConfigModule],
-  controllers: [AuthController],
+  imports: [
+    PassportModule,
+    JwtModule.register({}),
+    UserModule,
+    RecoverPasswordModule
+  ],
+  controllers: [AuthController, RecoverController],
   providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy]
 })
 export class AuthModule {}
