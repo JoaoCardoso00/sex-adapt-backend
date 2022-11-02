@@ -1,20 +1,20 @@
+import { MailModule } from './services/mail/mail.module';
 import { TypeOrmConfigService } from './config/typeorm/typeorm.config';
-import { MailerConfigService } from './config/mail/mail.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { UserModule } from './models/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import configEnvConfig from '@config/env/configEnv.config';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from '@guards/access-token.guard';
 import { ReviewModule } from './models/review/review.module';
-import { MailModule } from './services/mail/mail.module';
+import { SuportModule } from './models/suport/suport.module';
 import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, load: [configEnvConfig] }),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -23,6 +23,7 @@ import { RecoverPasswordModule } from '@providers/recover-password/recover-passw
     UserModule,
     AuthModule,
     ReviewModule,
+    SuportModule,
     MailModule,
     RecoverPasswordModule
   ],

@@ -1,3 +1,4 @@
+import { ConfigModule } from '@nestjs/config';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { UserModule } from '@models/user/user.module';
 import { Module } from '@nestjs/common';
