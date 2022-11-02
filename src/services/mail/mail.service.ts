@@ -1,19 +1,28 @@
 import { UserEntity } from '@user/entities/user.entity';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { BaseEmail } from './@types/base-email.type';
 
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  async sendMail(user: UserEntity) {
-    return await this.mailerService.sendMail({
+  async sendMail(user: UserEntity, email: BaseEmail) {
+    return this.mailerService.sendMail({
       to: user.email,
-      subject: 'teste',
+      subject: email.subject,
       template: 'baseEmail.hbs',
-      context: {
-        name: user.name
-      }
+      context: { ...email }
+    });
+  }
+
+  async sendSuportMail(email: BaseEmail, from: string) {
+    return this.mailerService.sendMail({
+      from: from,
+      to: 'sex.adapt.sac@gmail.com',
+      subject: email.subject,
+      template: 'baseEmail.hbs',
+      context: { ...email }
     });
   }
 

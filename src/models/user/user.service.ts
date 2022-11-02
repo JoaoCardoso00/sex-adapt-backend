@@ -37,6 +37,11 @@ export class UserService {
           comment: true,
           grade: true,
           id: true
+        },
+        suports: {
+          id: true,
+          createdAt: true,
+          message: true
         }
       }
     });
@@ -51,7 +56,7 @@ export class UserService {
       where: {
         email
       },
-      relations: ['reviews', 'accessibilities']
+      relations: ['reviews', 'accessibilities', 'suports']
     });
   }
 
@@ -59,7 +64,7 @@ export class UserService {
     try {
       return await this.usersRepository.findOneOrFail({
         ...options,
-        relations: ['reviews', 'accessibilities']
+        relations: ['reviews', 'accessibilities', 'suports']
       });
     } catch (error) {
       throw new NotFoundException(error.message);

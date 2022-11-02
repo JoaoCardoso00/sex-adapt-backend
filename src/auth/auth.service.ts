@@ -1,3 +1,4 @@
+import { JwtPayload } from './@types/jwt-payload.type';
 import { LoginFailedException } from './../common/exceptions/login-failed.exception';
 import { NotFoundException } from './../common/exceptions/not-found.exception';
 import { CreateUserDto } from './../models/user/dto/create-user.dto';
@@ -76,27 +77,19 @@ export class AuthService {
   }
 
   async getTokens(userId: string, email: string): Promise<Tokens> {
+    const jwtPayload: JwtPayload = {
+      sub: userId,
+      email
+    };
     const [access_token, refresh_token] = await Promise.all([
-      this.jwtService.signAsync(
-        {
-          sub: userId,
-          email
-        },
-        {
-          secret: this.configService.get('JWT_ACCESS_SECRET'),
-          expiresIn: this.configService.get('JWT_EXPIRES_IN')
-        }
-      ),
-      this.jwtService.signAsync(
-        {
-          sub: userId,
-          email
-        },
-        {
-          secret: this.configService.get('JWT_REFRESH_SECRET'),
-          expiresIn: this.configService.get('JWT_EXPIRES_IN')
-        }
-      )
+      this.jwtService.signAsync(jwtPayload, {
+        secret: this.configService.get('JWT_ACCESS_SECRET'),
+        expiresIn: '10h'
+      }),
+      this.jwtService.signAsync(jwtPayload, {
+        secret: this.configService.get('JWT_REFRESH_SECRET'),
+        expiresIn: '7d'
+      })
     ]);
 
     return {
