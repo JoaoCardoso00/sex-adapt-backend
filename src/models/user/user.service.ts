@@ -1,3 +1,4 @@
+import { AccessibilityEntity } from './../accessibility/entities/accessibility.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
@@ -9,17 +10,25 @@ import { UserEntity } from './entities/user.entity';
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private usersRepository: Repository<UserEntity>
+    private usersRepository: Repository<UserEntity>,
+    @InjectRepository(AccessibilityEntity)
+    private accessibilityRepository: Repository<AccessibilityEntity>
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     const user = this.usersRepository.create(createUserDto);
+    const accessibility = this.accessibilityRepository.create(
+      createUserDto.accessibilities
+    );
+    user.accessibilities = accessibility;
+    accessibility.user = user;
+    await this.accessibilityRepository.save(accessibility);
     return await this.usersRepository.save(user);
   }
 
   async findAll() {
     return await this.usersRepository.find({
-      relations: ['reviews'],
+      relations: ['reviews', 'accessibilities'],
       select: {
         email: true,
         id: true,
@@ -47,7 +56,7 @@ export class UserService {
       where: {
         email
       },
-      relations: ['reviews', 'suports']
+      relations: ['reviews', 'accessibilities', 'suports']
     });
   }
 
@@ -55,7 +64,7 @@ export class UserService {
     try {
       return await this.usersRepository.findOneOrFail({
         ...options,
-        relations: ['reviews', 'suports']
+        relations: ['reviews', 'accessibilities', 'suports']
       });
     } catch (error) {
       throw new NotFoundException(error.message);

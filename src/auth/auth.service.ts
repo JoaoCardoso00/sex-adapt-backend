@@ -20,21 +20,12 @@ export class AuthService {
 
   //DB CHANGES
   async signup_local(userInfo: CreateUserDto): Promise<Tokens> {
-    try {
-      const new_user = await this.userService.create({
-        email: userInfo.email,
-        name: userInfo.name,
-        password: userInfo.password,
-        hashedRefreshToken: null
-      });
+    const new_user = await this.userService.create(userInfo);
 
-      const tokens = await this.getTokens(new_user.id, new_user.email);
-      await this.updateRtHash(new_user.id, tokens.refresh_token);
+    const tokens = await this.getTokens(new_user.id, new_user.email);
+    await this.updateRtHash(new_user.id, tokens.refresh_token);
 
-      return tokens;
-    } catch (err) {
-      throw new LoginFailedException();
-    }
+    return tokens;
   }
 
   async signin_local(authInfo: AuthDto): Promise<Tokens> {

@@ -24,7 +24,6 @@ export class UserController {
   }
 
   @Get()
-  @Public()
   async findAll() {
     return await this.userService.findAll();
   }

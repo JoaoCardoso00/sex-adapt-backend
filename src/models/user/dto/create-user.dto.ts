@@ -1,11 +1,16 @@
 import { HttpCustomMessages } from './../../../common/helpers/exceptions/messages/index.messages';
 import {
+  IsDefined,
   IsEmail,
   IsNotEmpty,
+  IsNotEmptyObject,
+  IsObject,
   IsString,
   Matches,
-  MinLength
+  ValidateNested
 } from 'class-validator';
+import { Type } from 'class-transformer';
+import { CreateAccessibilityDto } from '@models/accessibility/dto/create-accessibility.dto';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
@@ -23,6 +28,13 @@ export class CreateUserDto {
   @IsString({ message: HttpCustomMessages.VALIDATION.NAME.INVALID })
   @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.NAME.REQUIRED })
   name: string;
+
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  @Type(() => CreateAccessibilityDto)
+  accessibilities: CreateAccessibilityDto;
 
   hashedRefreshToken: string | null;
 }

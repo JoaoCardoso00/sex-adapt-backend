@@ -1,6 +1,4 @@
-import { RecoverPasswordEntity } from './../../recover-password/entities/recover-password.entity';
-import { ReviewEntity } from './../../review/entities/review.entity';
-import { hash } from 'argon2';
+import { AccessibilityEntity } from './../../accessibility/entities/accessibility.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -10,6 +8,8 @@ import {
   OneToMany,
   OneToOne
 } from 'typeorm';
+import { ReviewEntity } from './../../review/entities/review.entity';
+import { hash } from 'argon2';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 import { SuportEntity } from '@models/suport/entities/suport.entity';
@@ -24,6 +24,16 @@ export class UserEntity extends BaseEntity implements IUserEntity {
 
   @Column()
   name: string;
+
+  @OneToOne(
+    () => AccessibilityEntity,
+    (accessibilities) => accessibilities.user,
+    {
+      cascade: true
+    }
+  )
+  @JoinColumn({ name: 'accessibility_id' })
+  accessibilities: AccessibilityEntity;
 
   @OneToMany(() => ReviewEntity, (review) => review.user, { cascade: true })
   @JoinColumn({ name: 'review_id' })
