@@ -7,7 +7,8 @@ import { IAccessibilityEntity } from '../interfaces/accessibility.interface';
 @Entity({ name: 'accessibilities' })
 export class AccessibilityEntity
   extends BaseEntity
-  implements IAccessibilityEntity {
+  implements IAccessibilityEntity
+{
   @OneToOne(() => UserEntity, (user) => user.accessibilities, {
     onDelete: 'CASCADE',
     nullable: true
@@ -15,10 +16,14 @@ export class AccessibilityEntity
   @JoinColumn({ name: 'user_id' })
   user: UserEntity | null;
 
-  @OneToOne(() => EstablishmentEntity, (establishment) => establishment.accessibilities, {
-    onDelete: 'CASCADE',
-    nullable: true
-  })
+  @OneToOne(
+    () => EstablishmentEntity,
+    (establishment) => establishment.accessibilities,
+    {
+      onDelete: 'CASCADE',
+      nullable: true
+    }
+  )
   establishment: EstablishmentEntity | null;
 
   @Column()
