@@ -11,5 +11,4 @@ export interface IUserEntity extends IBaseEntity {
   reviews: IReviewEntity[];
   accessibilities: IAccessibilityEntity;
   suports: ISuportEntity[];
-  hashedRefreshToken: string;
 }

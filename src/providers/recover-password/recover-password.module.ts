@@ -6,10 +6,11 @@ import { RecoverPasswordEntity } from './../../models/recover-password/entities/
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecoverPasswordService } from './recover-password.service';
+import { AccessibilityEntity } from '../../models/accessibility/entities/accessibility.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity]),
+    TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity, AccessibilityEntity]),
     UserModule,
     MailModule
   ],
