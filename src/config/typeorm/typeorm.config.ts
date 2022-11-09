@@ -7,6 +7,7 @@ import { join } from 'path';
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    console.log(join(__dirname, '..', '..','**', '*.entity.{ts,js}'));
     return {
       type: 'postgres',
       host: this.configService.get('DB_HOST'),
@@ -14,8 +15,9 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get('DB_USERNAME'),
       password: this.configService.get('DB_PASSWORD'),
       database: this.configService.get('DB'),
-      entities: [join(__dirname, '..', '**', '**', '*.entity.{ts,js}')],
-      
+      entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
+      autoLoadEntities: true,
+
       synchronize: true
     };
   }

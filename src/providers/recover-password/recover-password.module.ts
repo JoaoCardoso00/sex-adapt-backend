@@ -10,7 +10,11 @@ import { AccessibilityEntity } from '../../models/accessibility/entities/accessi
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RecoverPasswordEntity, UserEntity, AccessibilityEntity]),
+    TypeOrmModule.forFeature([
+      RecoverPasswordEntity,
+      UserEntity,
+      AccessibilityEntity
+    ]),
     UserModule,
     MailModule
   ],

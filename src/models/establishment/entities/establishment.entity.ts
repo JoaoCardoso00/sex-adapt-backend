@@ -1,12 +1,12 @@
 import { AccessibilityEntity } from '@models/accessibility/entities/accessibility.entity';
-import { Column, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity } from '../../base/entities/base-entity.entity';
 import { IEstablishmentEntity } from '../interfaces/establishment.interface';
 
+@Entity({ name: "establishments" })
 export class EstablishmentEntity
   extends BaseEntity
-  implements IEstablishmentEntity
-{
+  implements IEstablishmentEntity {
   @OneToOne(
     () => AccessibilityEntity,
     (accessibilities) => accessibilities.establishment,
@@ -20,36 +20,36 @@ export class EstablishmentEntity
   @Column()
   name: string;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'float' })
   price: number;
 
   @Column()
   category: string;
 
-  @Column()
-  website: string;
+  @Column({ default: "" })
+  website?: string;
 
-  @Column()
-  address: string;
+  @Column({ default: "" })
+  address?: string;
 
   @Column()
   ground_floor_room: boolean;
 
-  @Column()
-  latitude: number;
+  // @Column()
+  // latitude: number;
+
+  // @Column()
+  // longitude: number;
+
+  @Column({ default: "" })
+  cover_photo?: string;
+
+  @Column("text", { array: true, default: [] })
+  room_photo?: string[];
 
   @Column()
-  longitude: number;
+  landline: string;
 
-  @Column()
-  cover_photo: string;
-
-  @Column()
-  room_photo: string[];
-
-  @Column()
-  landline: number;
-
-  @Column()
-  whatsapp: string;
+  @Column({ default: "" })
+  whatsapp?: string;
 }

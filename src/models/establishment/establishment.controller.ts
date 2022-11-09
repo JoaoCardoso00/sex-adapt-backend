@@ -10,14 +10,16 @@ import {
 import { EstablishmentService } from './establishment.service';
 import { CreateEstablishmentDto } from './dto/create-establishment.dto';
 import { UpdateEstablishmentDto } from './dto/update-establishment.dto';
+import { Public } from '@decorators/*';
 
+@Public()
 @Controller('establishment')
 export class EstablishmentController {
-  constructor(private readonly establishmentService: EstablishmentService) {}
+  constructor(private readonly establishmentService: EstablishmentService) { }
 
   @Post()
-  create(@Body() createEstablishmentDto: CreateEstablishmentDto) {
-    return this.establishmentService.create(createEstablishmentDto);
+  async create(@Body() createEstablishmentDto: CreateEstablishmentDto) {
+    return await this.establishmentService.create(createEstablishmentDto);
   }
 
   @Get()
@@ -27,7 +29,7 @@ export class EstablishmentController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.establishmentService.findOne(+id);
+    return this.establishmentService.findOneOrFail({ where: { id } });
   }
 
   @Patch(':id')
@@ -35,11 +37,11 @@ export class EstablishmentController {
     @Param('id') id: string,
     @Body() updateEstablishmentDto: UpdateEstablishmentDto
   ) {
-    return this.establishmentService.update(+id, updateEstablishmentDto);
+    return this.establishmentService.update(id, updateEstablishmentDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.establishmentService.remove(+id);
+    return this.establishmentService.remove(id);
   }
 }
