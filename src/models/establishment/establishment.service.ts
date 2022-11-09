@@ -14,13 +14,16 @@ export class EstablishmentService {
     private establishmentRepository: Repository<EstablishmentEntity>,
     @InjectRepository(AccessibilityEntity)
     private accessibilityRepository: Repository<AccessibilityEntity>
-  ) { }
+  ) {}
 
   async create(createEstablishmentDto: CreateEstablishmentDto) {
-    const establishment = this.establishmentRepository.create(createEstablishmentDto);
-    const accessibility = this.accessibilityRepository.create(
-      {...createEstablishmentDto.accessibilities, establishment: establishment}
+    const establishment = this.establishmentRepository.create(
+      createEstablishmentDto
     );
+    const accessibility = this.accessibilityRepository.create({
+      ...createEstablishmentDto.accessibilities,
+      establishment: establishment
+    });
     establishment.accessibilities = accessibility;
     await this.accessibilityRepository.save(accessibility);
     return await this.establishmentRepository.save(establishment);
@@ -28,7 +31,7 @@ export class EstablishmentService {
 
   async findAll() {
     return await this.establishmentRepository.find({
-      relations: ['accessibilities'],
+      relations: ['accessibilities']
     });
   }
 

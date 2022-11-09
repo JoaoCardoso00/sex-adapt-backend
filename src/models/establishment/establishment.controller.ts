@@ -15,7 +15,7 @@ import { Public } from '@decorators/*';
 @Public()
 @Controller('establishment')
 export class EstablishmentController {
-  constructor(private readonly establishmentService: EstablishmentService) { }
+  constructor(private readonly establishmentService: EstablishmentService) {}
 
   @Post()
   async create(@Body() createEstablishmentDto: CreateEstablishmentDto) {

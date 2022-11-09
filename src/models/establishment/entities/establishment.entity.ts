@@ -3,10 +3,11 @@ import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity } from '../../base/entities/base-entity.entity';
 import { IEstablishmentEntity } from '../interfaces/establishment.interface';
 
-@Entity({ name: "establishments" })
+@Entity({ name: 'establishments' })
 export class EstablishmentEntity
   extends BaseEntity
-  implements IEstablishmentEntity {
+  implements IEstablishmentEntity
+{
   @OneToOne(
     () => AccessibilityEntity,
     (accessibilities) => accessibilities.establishment,
@@ -26,10 +27,10 @@ export class EstablishmentEntity
   @Column()
   category: string;
 
-  @Column({ default: "" })
+  @Column({ default: '' })
   website?: string;
 
-  @Column({ default: "" })
+  @Column({ default: '' })
   address?: string;
 
   @Column()
@@ -41,15 +42,15 @@ export class EstablishmentEntity
   // @Column()
   // longitude: number;
 
-  @Column({ default: "" })
+  @Column({ default: '' })
   cover_photo?: string;
 
-  @Column("text", { array: true, default: [] })
+  @Column('text', { array: true, default: [] })
   room_photo?: string[];
 
   @Column()
   landline: string;
 
-  @Column({ default: "" })
+  @Column({ default: '' })
   whatsapp?: string;
 }

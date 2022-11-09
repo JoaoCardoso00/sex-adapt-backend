@@ -6,7 +6,9 @@ import { EstablishmentEntity } from './entities/establishment.entity';
 import { AccessibilityEntity } from '../accessibility/entities/accessibility.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([EstablishmentEntity, AccessibilityEntity])],
+  imports: [
+    TypeOrmModule.forFeature([EstablishmentEntity, AccessibilityEntity])
+  ],
   controllers: [EstablishmentController],
   providers: [EstablishmentService]
 })
