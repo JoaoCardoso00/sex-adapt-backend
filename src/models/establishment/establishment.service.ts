@@ -55,7 +55,7 @@ export class EstablishmentService {
     try {
       return await this.establishmentRepository.findOneOrFail({
         ...options,
-        relations: ['accessibilities'],
+        relations: ['accessibilities', 'favorites'],
         select: {
           accessibilities: {
             bar: true,

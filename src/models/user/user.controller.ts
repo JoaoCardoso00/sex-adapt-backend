@@ -1,3 +1,4 @@
+import { FavoriteService } from './../../providers/favorite/favorite.service';
 import {
   Controller,
   Get,
@@ -20,7 +21,7 @@ import { SuggestionService } from '@providers/suggestion/suggestion.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    @Inject(forwardRef(() => SuggestionService))
+    private readonly favoriteService: FavoriteService,
     private readonly suggestionService: SuggestionService
   ) {}
 
@@ -33,16 +34,6 @@ export class UserController {
   @Get()
   async findAll() {
     return await this.userService.findAll();
-  }
-
-  @Get('/findById/:id')
-  findOneById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.userService.findOneById(id);
-  }
-
-  @Get('/findByEmail/:email')
-  findOneByEmail(@Param('email') email: string) {
-    return this.userService.findOneByEmail(email);
   }
 
   @Patch(':id')
@@ -64,5 +55,20 @@ export class UserController {
   @Get('/suggestion')
   async generateSuggestions(@GetCurrentUserId() userId: string) {
     return await this.suggestionService.generateUserSuggestions(userId);
+  }
+
+  @Get('/favorites')
+  async getFavorites(@GetCurrentUserId() userId: string) {
+    return await this.favoriteService.getUserFavorites(userId)
+  }
+
+  @Post('/favorites/:id')
+  async favorite(@GetCurrentUserId() userId: string, @Param('id') establishmentId: string) {
+    return await this.favoriteService.favorite(userId, establishmentId)
+  }
+
+  @Delete('/favorites/:id')
+  async unfavorite(@GetCurrentUserId() userId: string, @Param('id') establishmentId: string) {
+    return await this.favoriteService.unfavorite(userId, establishmentId)
   }
 }

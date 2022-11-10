@@ -1,6 +1,7 @@
 import { CreateAccessibilityDto } from '@models/accessibility/dto/create-accessibility.dto';
 import { Type } from 'class-transformer';
 import { HttpCustomMessages } from '../../../common/helpers/exceptions/messages/index.messages';
+import { UserEntity } from '../../user/entities/user.entity';
 import {
   IsArray,
   IsBoolean,
@@ -24,6 +25,8 @@ export class CreateEstablishmentDto {
   @ValidateNested()
   @Type(() => CreateAccessibilityDto)
   accessibilities: CreateAccessibilityDto;
+
+  favoritedBy: UserEntity[] | null;
 
   @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.NAME.REQUIRED })
   @IsString({ message: HttpCustomMessages.VALIDATION.NAME.INVALID })

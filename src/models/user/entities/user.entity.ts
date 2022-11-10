@@ -5,6 +5,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne
 } from 'typeorm';
@@ -13,6 +15,7 @@ import { hash } from 'argon2';
 import { BaseEntity } from './../../base/entities/base-entity.entity';
 import { IUserEntity } from './../interfaces/user.interface';
 import { SuportEntity } from '@models/suport/entities/suport.entity';
+import { EstablishmentEntity } from '../../establishment/entities/establishment.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements IUserEntity {
@@ -42,6 +45,11 @@ export class UserEntity extends BaseEntity implements IUserEntity {
   @OneToMany(() => SuportEntity, (suport) => suport.user, { cascade: true })
   @JoinColumn({ name: 'suport_id' })
   suports: SuportEntity[];
+
+
+  @ManyToMany(() => EstablishmentEntity, (establishment) => establishment.favoritedBy, { cascade: true })
+  @JoinTable({ name: 'favorites' })
+  favorites: EstablishmentEntity[];
 
   @Column({ nullable: true })
   hashedRefreshToken: string;
