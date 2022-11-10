@@ -18,7 +18,7 @@ import { SuggestionService } from '@providers/suggestion/suggestion.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly suggestionService: SuggestionService,
+    private readonly suggestionService: SuggestionService
   ) {}
 
   @Post()
@@ -59,9 +59,7 @@ export class UserController {
   }
 
   @Get('/suggestion')
-  async generateSuggestions(
-    @GetCurrentUserId() userId: string,
-    ) {
-      return await this.suggestionService.generateUserSuggestions(userId)
+  async generateSuggestions(@GetCurrentUserId() userId: string) {
+    return await this.suggestionService.generateUserSuggestions(userId);
   }
 }

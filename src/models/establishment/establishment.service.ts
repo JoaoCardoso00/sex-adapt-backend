@@ -15,7 +15,7 @@ export class EstablishmentService {
     private establishmentRepository: Repository<EstablishmentEntity>,
     @InjectRepository(AccessibilityEntity)
     private accessibilityRepository: Repository<AccessibilityEntity>
-  ) { }
+  ) {}
 
   async create(createEstablishmentDto: CreateEstablishmentDto) {
     const establishment = this.establishmentRepository.create(
