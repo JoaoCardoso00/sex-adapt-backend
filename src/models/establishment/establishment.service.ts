@@ -6,7 +6,6 @@ import { CreateEstablishmentDto } from './dto/create-establishment.dto';
 import { UpdateEstablishmentDto } from './dto/update-establishment.dto';
 import { EstablishmentEntity } from './entities/establishment.entity';
 import { HttpCustomMessages } from '../../common/helpers/exceptions/messages/index.messages';
-import { IAccessibilityEntity } from '../../../dist/models/accessibility/interfaces/accessibility.interface';
 
 @Injectable()
 export class EstablishmentService {
@@ -36,7 +35,7 @@ export class EstablishmentService {
     });
   }
 
-  async findByAccessibilities(accessibilities: IAccessibilityEntity) {
+  async findByAccessibilities(accessibilities: AccessibilityEntity) {
     return await this.establishmentRepository.find({
       where: {
         accessibilities: {

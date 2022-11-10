@@ -1,11 +1,10 @@
 import { UserModule } from '@models/user/user.module';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { EstablishmentModule } from '../../models/establishment/establishment.module';
 import { SuggestionService } from './suggestion.service';
 
 @Module({
-  imports: [EstablishmentModule, UserModule],
-  controllers: [],
+  imports: [forwardRef(() => EstablishmentModule), forwardRef(() => UserModule)],
   providers: [SuggestionService],
   exports: [SuggestionService]
 })

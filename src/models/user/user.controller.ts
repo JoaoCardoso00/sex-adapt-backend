@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
-  ParseUUIDPipe
+  ParseUUIDPipe,
+  forwardRef,
+  Inject
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +20,7 @@ import { SuggestionService } from '@providers/suggestion/suggestion.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
+    @Inject(forwardRef(() => SuggestionService))
     private readonly suggestionService: SuggestionService
   ) {}
 

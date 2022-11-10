@@ -1,5 +1,5 @@
 import { EstablishmentService } from '@models/establishment/establishment.service';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { UserService } from '@models/user/user.service';
 
 @Injectable()
