@@ -53,7 +53,7 @@ export class EstablishmentService {
         }
       });
     } catch (error) {
-      throw new NotFoundException();
+      throw new NotFoundException(HttpCustomMessages.ESTABLISHMENT.NOT_FOUND);
     }
   }
 
