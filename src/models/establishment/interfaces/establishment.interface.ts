@@ -10,8 +10,8 @@ export interface IEstablishmentEntity extends IBaseEntity {
   website?: string;
   address?: string;
   ground_floor_room: boolean;
-  // latitude: number;
-  // longitude: number;
+  latitude: number;
+  longitude: number;
   cover_photo?: string;
   room_photo?: string[];
   landline: string;

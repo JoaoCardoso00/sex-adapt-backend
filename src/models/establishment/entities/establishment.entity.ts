@@ -36,11 +36,11 @@ export class EstablishmentEntity
   @Column()
   ground_floor_room: boolean;
 
-  // @Column()
-  // latitude: number;
+  @Column()
+  latitude: number;
 
-  // @Column()
-  // longitude: number;
+  @Column()
+  longitude: number;
 
   @Column({ default: '' })
   cover_photo?: string;
