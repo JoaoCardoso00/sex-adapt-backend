@@ -6,6 +6,7 @@ import { CreateEstablishmentDto } from './dto/create-establishment.dto';
 import { UpdateEstablishmentDto } from './dto/update-establishment.dto';
 import { EstablishmentEntity } from './entities/establishment.entity';
 import { HttpCustomMessages } from '../../common/helpers/exceptions/messages/index.messages';
+import { IAccessibilityEntity } from '../../../dist/models/accessibility/interfaces/accessibility.interface';
 
 @Injectable()
 export class EstablishmentService {
@@ -14,7 +15,7 @@ export class EstablishmentService {
     private establishmentRepository: Repository<EstablishmentEntity>,
     @InjectRepository(AccessibilityEntity)
     private accessibilityRepository: Repository<AccessibilityEntity>
-  ) {}
+  ) { }
 
   async create(createEstablishmentDto: CreateEstablishmentDto) {
     const establishment = this.establishmentRepository.create(
@@ -32,6 +33,22 @@ export class EstablishmentService {
   async findAll() {
     return await this.establishmentRepository.find({
       relations: ['accessibilities']
+    });
+  }
+
+  async findByAccessibilities(accessibilities: IAccessibilityEntity) {
+    return await this.establishmentRepository.find({
+      where: {
+        accessibilities: {
+          bar: accessibilities.bar,
+          elevator: accessibilities.elevator,
+          incompatible_dimensions: accessibilities.incompatible_dimensions,
+          sign_language: accessibilities.sign_language,
+          braille: accessibilities.braille,
+          tactile_floor: accessibilities.tactile_floor,
+          uneeveness: accessibilities.uneeveness
+        }
+      }
     });
   }
 

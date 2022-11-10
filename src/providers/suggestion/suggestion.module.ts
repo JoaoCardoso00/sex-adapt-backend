@@ -4,10 +4,7 @@ import { EstablishmentModule } from '../../models/establishment/establishment.mo
 import { SuggestionService } from './suggestion.service';
 
 @Module({
-  imports: [
-    EstablishmentModule,
-    UserModule,
-  ],
+  imports: [EstablishmentModule, UserModule],
   controllers: [],
   providers: [SuggestionService],
   exports: [SuggestionService]

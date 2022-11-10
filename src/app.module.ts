@@ -28,14 +28,14 @@ import { SuggestionModule } from './providers/suggestion/suggestion.module';
     AuthModule,
     ReviewModule,
     SuportModule,
-    EstablishmentModule,
+    EstablishmentModule
   ],
   controllers: [],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AccessTokenGuard
-    },
+    }
   ]
 })
 export class AppModule {}
