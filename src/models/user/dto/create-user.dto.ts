@@ -38,5 +38,5 @@ export class CreateUserDto {
   accessibilities: CreateAccessibilityDto;
 
   hashedRefreshToken: string | null;
-  favorites: null | EstablishmentEntity[]
+  favorites: null | EstablishmentEntity[];
 }

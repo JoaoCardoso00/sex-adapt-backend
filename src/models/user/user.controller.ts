@@ -59,16 +59,22 @@ export class UserController {
 
   @Get('/favorites')
   async getFavorites(@GetCurrentUserId() userId: string) {
-    return await this.favoriteService.getUserFavorites(userId)
+    return await this.favoriteService.getUserFavorites(userId);
   }
 
   @Post('/favorites/:id')
-  async favorite(@GetCurrentUserId() userId: string, @Param('id') establishmentId: string) {
-    return await this.favoriteService.favorite(userId, establishmentId)
+  async favorite(
+    @GetCurrentUserId() userId: string,
+    @Param('id') establishmentId: string
+  ) {
+    return await this.favoriteService.favorite(userId, establishmentId);
   }
 
   @Delete('/favorites/:id')
-  async unfavorite(@GetCurrentUserId() userId: string, @Param('id') establishmentId: string) {
-    return await this.favoriteService.unfavorite(userId, establishmentId)
+  async unfavorite(
+    @GetCurrentUserId() userId: string,
+    @Param('id') establishmentId: string
+  ) {
+    return await this.favoriteService.unfavorite(userId, establishmentId);
   }
 }

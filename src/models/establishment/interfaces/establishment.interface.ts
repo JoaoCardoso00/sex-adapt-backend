@@ -4,7 +4,7 @@ import { IAccessibilityEntity } from '../../accessibility/interfaces/accessibili
 
 export interface IEstablishmentEntity extends IBaseEntity {
   accessibilities: IAccessibilityEntity;
-  favoritedBy: IUserEntity[]
+  favoritedBy: IUserEntity[];
   name: string;
   price: number;
   category: string;

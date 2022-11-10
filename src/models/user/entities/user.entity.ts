@@ -46,8 +46,11 @@ export class UserEntity extends BaseEntity implements IUserEntity {
   @JoinColumn({ name: 'suport_id' })
   suports: SuportEntity[];
 
-
-  @ManyToMany(() => EstablishmentEntity, (establishment) => establishment.favoritedBy, { cascade: true })
+  @ManyToMany(
+    () => EstablishmentEntity,
+    (establishment) => establishment.favoritedBy,
+    { cascade: true }
+  )
   @JoinTable({ name: 'favorites' })
   favorites: EstablishmentEntity[];
 

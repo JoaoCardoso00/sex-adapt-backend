@@ -24,8 +24,8 @@ export class UserService {
     accessibility.user = user;
     await this.accessibilityRepository.save(accessibility);
     const saved = await this.usersRepository.save(user);
-    delete saved.password
-    return saved
+    delete saved.password;
+    return saved;
   }
 
   async findAll() {
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   async findOneById(id: string) {
-     return await this.usersRepository.findOne({
+    return await this.usersRepository.findOne({
       where: {
         id
       },

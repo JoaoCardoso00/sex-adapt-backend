@@ -2,10 +2,7 @@ import { HttpCustomMessages } from './../helpers/exceptions/messages/index.messa
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class FavoriteException extends HttpException {
-    constructor(error: string) {
-        super(
-            error,
-            HttpStatus.CONFLICT
-        );
-    }
+  constructor(error: string) {
+    super(error, HttpStatus.CONFLICT);
+  }
 }
