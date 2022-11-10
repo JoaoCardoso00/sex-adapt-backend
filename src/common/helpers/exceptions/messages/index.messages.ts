@@ -7,7 +7,7 @@ export const HttpCustomMessages = {
     NOT_FOUND: 'Usuário não encontrado.'
   },
   ESTABLISHMENT: {
-    NOT_FOUND: '',
+    NOT_FOUND: ''
   },
   RECOVER: {
     NOT_FOUND: 'Recuperação não encontrada.',
@@ -24,10 +24,10 @@ export const HttpCustomMessages = {
       REQUIRED: 'Whatsapp é obrigátorio.'
     },
     LANDLINE: {
-      INVALID: 'Telefone inválido.',
+      INVALID: 'Telefone inválido.'
     },
     GROUND_FLOOR_ROOM: {
-      INVALID: 'Quarto no térreo inválido.',
+      INVALID: 'Quarto no térreo inválido.'
     },
     ADDRESS: {
       INVALID: 'Endereço inválido.',
@@ -42,7 +42,7 @@ export const HttpCustomMessages = {
       REQUIRED: 'Categoria é obrigatória.'
     },
     PRICE: {
-      INVALID: 'Preço inválido.',
+      INVALID: 'Preço inválido.'
     },
     EMAIL: {
       INVALID: 'E-mail inválido.',
