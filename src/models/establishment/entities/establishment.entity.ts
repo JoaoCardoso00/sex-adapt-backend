@@ -36,10 +36,10 @@ export class EstablishmentEntity
   @Column()
   ground_floor_room: boolean;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   latitude: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   longitude: number;
 
   @Column({ default: '' })

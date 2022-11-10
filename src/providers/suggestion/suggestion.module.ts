@@ -4,7 +4,10 @@ import { EstablishmentModule } from '../../models/establishment/establishment.mo
 import { SuggestionService } from './suggestion.service';
 
 @Module({
-  imports: [forwardRef(() => EstablishmentModule), forwardRef(() => UserModule)],
+  imports: [
+    forwardRef(() => EstablishmentModule),
+    forwardRef(() => UserModule)
+  ],
   providers: [SuggestionService],
   exports: [SuggestionService]
 })

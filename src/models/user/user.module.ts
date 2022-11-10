@@ -7,7 +7,10 @@ import { UserController } from './user.controller';
 import { SuggestionModule } from '../../providers/suggestion/suggestion.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, AccessibilityEntity]), forwardRef(() => SuggestionModule)],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, AccessibilityEntity]),
+    forwardRef(() => SuggestionModule)
+  ],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService]
