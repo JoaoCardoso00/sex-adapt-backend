@@ -13,7 +13,7 @@ import {
 import { RecoverPasswordService } from '@providers/recover-password/recover-password.service';
 
 @Public()
-@Controller('recover')
+@Controller('auth/recover')
 export class RecoverController {
   constructor(private recoverService: RecoverPasswordService) {}
 

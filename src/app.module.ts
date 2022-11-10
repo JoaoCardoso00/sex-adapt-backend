@@ -11,6 +11,8 @@ import { ReviewModule } from './models/review/review.module';
 import { SuportModule } from './models/suport/suport.module';
 import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
 import { EstablishmentModule } from './models/establishment/establishment.module';
+import { SuggestionService } from './providers/suggestion/suggestion.service';
+import { SuggestionModule } from './providers/suggestion/suggestion.module';
 
 @Module({
   imports: [
@@ -26,16 +28,14 @@ import { EstablishmentModule } from './models/establishment/establishment.module
     AuthModule,
     ReviewModule,
     SuportModule,
-    MailModule,
-    RecoverPasswordModule,
-    EstablishmentModule
+    EstablishmentModule,
   ],
   controllers: [],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AccessTokenGuard
-    }
+    },
   ]
 })
 export class AppModule {}
