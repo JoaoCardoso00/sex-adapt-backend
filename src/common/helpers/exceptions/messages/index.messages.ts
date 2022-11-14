@@ -6,6 +6,9 @@ export const HttpCustomMessages = {
   USER: {
     NOT_FOUND: 'Usuário não encontrado.'
   },
+  ESTABLISHMENT: {
+    NOT_FOUND: 'Estabelecimento não encontrado.'
+  },
   RECOVER: {
     NOT_FOUND: 'Recuperação não encontrada.',
     IN_PROGRESS: 'Recuperação em andamento.',
@@ -16,6 +19,31 @@ export const HttpCustomMessages = {
     }
   },
   VALIDATION: {
+    WHATSAPP: {
+      INVALID: 'Whatsapp inválido.',
+      REQUIRED: 'Whatsapp é obrigátorio.'
+    },
+    LANDLINE: {
+      INVALID: 'Telefone inválido.'
+    },
+    GROUND_FLOOR_ROOM: {
+      INVALID: 'Valor de quarto no térreo inválido.'
+    },
+    ADDRESS: {
+      INVALID: 'Endereço inválido.',
+      REQUIRED: 'Endereço é obrigátorio'
+    },
+    WEBSITE: {
+      INVALID: 'Website inválido.',
+      REQUIRED: 'Website obrigátorio.'
+    },
+    CATEGORY: {
+      INVALID: 'Categoria inválida.',
+      REQUIRED: 'Categoria é obrigatória.'
+    },
+    PRICE: {
+      INVALID: 'Preço inválido.'
+    },
     EMAIL: {
       INVALID: 'E-mail inválido.',
       REQUIRED: 'E-mail é obrigatório.'

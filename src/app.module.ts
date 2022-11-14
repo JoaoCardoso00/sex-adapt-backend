@@ -10,6 +10,7 @@ import { MailModule } from './services/mail/mail.module';
 import { ReviewModule } from './models/review/review.module';
 import { SuportModule } from './models/suport/suport.module';
 import { RecoverPasswordModule } from '@providers/recover-password/recover-password.module';
+import { EstablishmentModule } from './models/establishment/establishment.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { RecoverPasswordModule } from '@providers/recover-password/recover-passw
     ReviewModule,
     SuportModule,
     MailModule,
-    RecoverPasswordModule
+    RecoverPasswordModule,
+    EstablishmentModule
   ],
   controllers: [],
   providers: [

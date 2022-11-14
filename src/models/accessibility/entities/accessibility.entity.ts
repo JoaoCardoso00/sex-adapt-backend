@@ -1,4 +1,5 @@
 import { BaseEntity } from '@models/base/entities/base-entity.entity';
+import { EstablishmentEntity } from '@models/establishment/entities/establishment.entity';
 import { UserEntity } from '@models/user/entities/user.entity';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { IAccessibilityEntity } from '../interfaces/accessibility.interface';
@@ -9,13 +10,21 @@ export class AccessibilityEntity
   implements IAccessibilityEntity
 {
   @OneToOne(() => UserEntity, (user) => user.accessibilities, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    nullable: true
   })
   @JoinColumn({ name: 'user_id' })
-  user: UserEntity;
+  user: UserEntity | null;
 
-  // @OneToOne(() => EstablishmentEntity, (establishment) => establishment.accessibilities, { onDelete: 'CASCADE' })
-  // establishmentId: string | null;
+  @OneToOne(
+    () => EstablishmentEntity,
+    (establishment) => establishment.accessibilities,
+    {
+      onDelete: 'CASCADE',
+      nullable: true
+    }
+  )
+  establishment: EstablishmentEntity | null;
 
   @Column()
   elevator: boolean;
