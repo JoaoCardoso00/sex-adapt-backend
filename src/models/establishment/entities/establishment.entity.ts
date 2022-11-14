@@ -30,8 +30,8 @@ export class EstablishmentEntity
   @Column({ default: '' })
   website?: string;
 
-  @Column({ default: '' })
-  address?: string;
+  @Column()
+  address: string;
 
   @Column()
   ground_floor_room: boolean;
@@ -42,11 +42,11 @@ export class EstablishmentEntity
   @Column()
   longitude: number;
 
-  @Column({ default: '' })
-  cover_photo?: string;
+  @Column()
+  cover_photo: string;
 
   @Column('text', { array: true, default: [] })
-  room_photo?: string[];
+  room_photos?: string[];
 
   @Column()
   landline: string;
