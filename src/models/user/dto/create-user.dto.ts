@@ -11,6 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateAccessibilityDto } from '@models/accessibility/dto/create-accessibility.dto';
+import { EstablishmentEntity } from '@models/establishment/entities/establishment.entity';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: HttpCustomMessages.VALIDATION.EMAIL.INVALID })
@@ -37,4 +38,5 @@ export class CreateUserDto {
   accessibilities: CreateAccessibilityDto;
 
   hashedRefreshToken: string | null;
+  favorites: null | EstablishmentEntity[];
 }

@@ -1,7 +1,8 @@
 import { AccessibilityEntity } from '@models/accessibility/entities/accessibility.entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from '../../base/entities/base-entity.entity';
 import { IEstablishmentEntity } from '../interfaces/establishment.interface';
+import { UserEntity } from '../../user/entities/user.entity';
 
 @Entity({ name: 'establishments' })
 export class EstablishmentEntity
@@ -17,6 +18,9 @@ export class EstablishmentEntity
   )
   @JoinColumn({ name: 'accessibility_id' })
   accessibilities: AccessibilityEntity;
+
+  @ManyToMany(() => UserEntity, (user) => user.favorites)
+  favoritedBy: UserEntity[];
 
   @Column()
   name: string;

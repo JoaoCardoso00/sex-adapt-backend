@@ -23,7 +23,9 @@ export class UserService {
     user.accessibilities = accessibility;
     accessibility.user = user;
     await this.accessibilityRepository.save(accessibility);
-    return await this.usersRepository.save(user);
+    const saved = await this.usersRepository.save(user);
+    delete saved.password;
+    return saved;
   }
 
   async findAll() {
@@ -48,7 +50,12 @@ export class UserService {
   }
 
   async findOneById(id: string) {
-    return await this.usersRepository.findOneBy({ id });
+    return await this.usersRepository.findOne({
+      where: {
+        id
+      },
+      relations: ['reviews', 'accessibilities', 'suports', 'favorites']
+    });
   }
 
   async findOneByEmail(email: string) {
@@ -56,7 +63,7 @@ export class UserService {
       where: {
         email
       },
-      relations: ['reviews', 'accessibilities', 'suports']
+      relations: ['reviews', 'accessibilities', 'suports', 'favorites']
     });
   }
 
@@ -64,7 +71,7 @@ export class UserService {
     try {
       return await this.usersRepository.findOneOrFail({
         ...options,
-        relations: ['reviews', 'accessibilities', 'suports']
+        relations: ['reviews', 'accessibilities', 'suports', 'favorites']
       });
     } catch (error) {
       throw new NotFoundException(error.message);

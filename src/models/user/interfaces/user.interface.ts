@@ -2,6 +2,7 @@ import { IAccessibilityEntity } from '@models/accessibility/interfaces/accessibi
 import { IBaseEntity } from './../../base/interfaces/base-entity.interface';
 import { ISuportEntity } from './../../suport/interfaces/suport.interface';
 import { IReviewEntity } from '@review/interfaces/review.interface';
+import { IEstablishmentEntity } from '@models/establishment/interfaces/establishment.interface';
 
 export interface IUserEntity extends IBaseEntity {
   email: string;
@@ -10,5 +11,6 @@ export interface IUserEntity extends IBaseEntity {
   hashedRefreshToken?: string | null;
   reviews: IReviewEntity[];
   accessibilities: IAccessibilityEntity;
+  favorites: IEstablishmentEntity[] | string[];
   suports: ISuportEntity[];
 }

@@ -1,9 +1,10 @@
 import { IBaseEntity } from '@models/base/interfaces/base-entity.interface';
+import { IUserEntity } from '@models/user/interfaces';
 import { IAccessibilityEntity } from '../../accessibility/interfaces/accessibility.interface';
 
 export interface IEstablishmentEntity extends IBaseEntity {
   accessibilities: IAccessibilityEntity;
-
+  favoritedBy: IUserEntity[];
   name: string;
   price: number;
   category: string;

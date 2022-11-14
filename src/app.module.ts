@@ -13,6 +13,7 @@ import { RecoverPasswordModule } from '@providers/recover-password/recover-passw
 import { EstablishmentModule } from './models/establishment/establishment.module';
 import { SuggestionService } from './providers/suggestion/suggestion.service';
 import { SuggestionModule } from './providers/suggestion/suggestion.module';
+import { FavoriteModule } from './providers/favorite/favorite.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { SuggestionModule } from './providers/suggestion/suggestion.module';
     AuthModule,
     ReviewModule,
     SuportModule,
-    EstablishmentModule
+    EstablishmentModule,
+    FavoriteModule
   ],
   controllers: [],
   providers: [
