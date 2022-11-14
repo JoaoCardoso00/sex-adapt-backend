@@ -7,7 +7,7 @@ export const HttpCustomMessages = {
     NOT_FOUND: 'Usuário não encontrado.'
   },
   ESTABLISHMENT: {
-    NOT_FOUND: ''
+    NOT_FOUND: 'Estabelecimento não encontrado.'
   },
   RECOVER: {
     NOT_FOUND: 'Recuperação não encontrada.',
@@ -27,7 +27,7 @@ export const HttpCustomMessages = {
       INVALID: 'Telefone inválido.'
     },
     GROUND_FLOOR_ROOM: {
-      INVALID: 'Quarto no térreo inválido.'
+      INVALID: 'Valor de quarto no térreo inválido.'
     },
     ADDRESS: {
       INVALID: 'Endereço inválido.',
