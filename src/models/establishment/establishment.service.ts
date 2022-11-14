@@ -35,6 +35,22 @@ export class EstablishmentService {
     });
   }
 
+  async findByAccessibilities(accessibilities: AccessibilityEntity) {
+    return await this.establishmentRepository.find({
+      where: {
+        accessibilities: {
+          bar: accessibilities.bar,
+          elevator: accessibilities.elevator,
+          incompatible_dimensions: accessibilities.incompatible_dimensions,
+          sign_language: accessibilities.sign_language,
+          braille: accessibilities.braille,
+          tactile_floor: accessibilities.tactile_floor,
+          uneeveness: accessibilities.uneeveness
+        }
+      }
+    });
+  }
+
   async findOneOrFail(options: FindOneOptions<EstablishmentEntity>) {
     try {
       return await this.establishmentRepository.findOneOrFail({

@@ -10,6 +10,7 @@ import { AccessibilityEntity } from '../accessibility/entities/accessibility.ent
     TypeOrmModule.forFeature([EstablishmentEntity, AccessibilityEntity])
   ],
   controllers: [EstablishmentController],
-  providers: [EstablishmentService]
+  providers: [EstablishmentService],
+  exports: [EstablishmentService]
 })
 export class EstablishmentModule {}

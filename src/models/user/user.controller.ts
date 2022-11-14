@@ -6,16 +6,23 @@ import {
   Patch,
   Param,
   Delete,
-  ParseUUIDPipe
+  ParseUUIDPipe,
+  forwardRef,
+  Inject
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Public } from 'src/common/decorators';
+import { GetCurrentUserId, Public } from 'src/common/decorators';
+import { SuggestionService } from '@providers/suggestion/suggestion.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    @Inject(forwardRef(() => SuggestionService))
+    private readonly suggestionService: SuggestionService
+  ) {}
 
   @Post()
   @Public()
@@ -52,5 +59,10 @@ export class UserController {
   @Delete('/deleteById/:id')
   removeById(@Param('id') id: string) {
     return this.userService.removeById(id);
+  }
+
+  @Get('/suggestion')
+  async generateSuggestions(@GetCurrentUserId() userId: string) {
+    return await this.suggestionService.generateUserSuggestions(userId);
   }
 }
